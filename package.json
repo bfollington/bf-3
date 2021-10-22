@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^7.17.1",
+    "@react-three/fiber": "^7.0.17",
+    "@stitches/react": "^1.2.5",
     "next": "11.1.2",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "three": "^0.133.1"
   },
   "devDependencies": {
     "@types/react": "17.0.31",
+    "@types/three": "^0.133.1",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "typescript": "4.4.4"

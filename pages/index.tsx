@@ -1,7 +1,28 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import { Box, OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { styled } from "@stitches/react";
+import type { NextPage } from "next";
+import Head from "next/head";
+import Image from "next/image";
+import React, { Suspense } from "react";
+import { PanelLegend, Interface, Text, Button, Panel } from "../components/hud";
+import styles from "../styles/Home.module.css";
+import Effects from "../components/Effects";
+
+const Main = styled("main", {
+  width: "100vw",
+  height: "100vh",
+});
+
+const Overlay = styled("div", {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  color: "white",
+  maxWidth: "480px",
+});
 
 const Home: NextPage = () => {
   return (
@@ -12,61 +33,127 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+      <Main>
+        <Canvas camera={{ position: [15, 15, 15] }}>
+          <color attach="background" args={["black"]} />
+          {/* <Sky azimuth={1} inclination={0.1} distance={1000} /> */}
+          <ambientLight intensity={0.1} />
+          <pointLight position={[10, 10, 10]} />
+          <Suspense fallback={null}>
+            <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
+            <Box args={[1, 1, 1]}>
+              <meshStandardMaterial color="red" />
+            </Box>
+            <Effects />
+          </Suspense>
+          <OrbitControls
+            minPolarAngle={Math.PI / 10}
+            maxPolarAngle={Math.PI / 1.5}
+          />
+        </Canvas>
+      </Main>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+      <Overlay>
+        <Interface>
+          <Panel>
+            <PanelLegend>Welcome</PanelLegend>
+            <Text>Hi, I’m Ben</Text>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+            <Text>
+              I&apos;m a UI Engineer, designer, generative artist and
+              independent game developer living in Brisbane, Australia.
+            </Text>
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+            <Text>
+              I make powerful, intuitive and joyful software using the tools I
+              love.
+            </Text>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+            <Text>
+              You&apos;ll find me working at the intersection of art,
+              technology, psychology, philosophy and human connection.
+            </Text>
+          </Panel>
+          <Panel>
+            <PanelLegend>About Me</PanelLegend>
+            <Text>You can find me around the internet:</Text>
+            <Button>
+              <code>[C]</code> cv
+            </Button>
+            <br />
+            <Button>
+              <code>[T]</code> twitter
+            </Button>
+            <br />
+            <Button>
+              <code>[G]</code> github
+            </Button>
+            <br />
+            <Button>
+              <code>[V]</code> twitch
+            </Button>
+            <br />
+            <Button>
+              <code>[A]</code> are.na
+            </Button>
+            <br />
+          </Panel>
+          <Panel>
+            <PanelLegend>heads up</PanelLegend>
+            <Text>
+              <strong>20th April, 2420</strong> <br />
+              You can&amp;t quite remember how you got here.
+            </Text>
+            <br />
+            <Button>
+              <code>[I]</code> open inventory
+            </Button>
+            <br />
+            <Button>
+              <code>[Q]</code> view quests
+            </Button>
+            <br />
+            <Button>
+              <code>[ESC]</code> settings
+            </Button>
+            <br />
+          </Panel>
+          <Panel>
+            <PanelLegend>inventory</PanelLegend>
+            <Text>
+              1 x Mouldy Bread
+              <br />
+              10 x Legendary Runic Halberd
+            </Text>
+          </Panel>
+          <Panel>
+            <PanelLegend>inbox (1 unread)</PanelLegend>
+            <Text>
+              <strong>WHERE THE F**K IS MY MONEY?</strong>
+              <br />
+              Payment terms
+              <br />
+              15% off &quot;Mouldy Bread&quot; today!
+              <br />
+            </Text>
+          </Panel>
+        </Interface>
+      </Overlay>
 
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
-
-      <footer className={styles.footer}>
+      {/* <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
-      </footer>
+      </footer> */}
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
