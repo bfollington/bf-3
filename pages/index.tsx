@@ -1,13 +1,15 @@
 import { Box, OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, useStore } from "@react-three/fiber";
 import { styled } from "@stitches/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useRef } from "react";
 import { PanelLegend, Interface, Text, Button, Panel } from "../components/hud";
 import styles from "../styles/Home.module.css";
 import Effects from "../components/Effects";
+import Ribbon from "../components/Ribbon";
+import { useSpring, animated } from "@react-spring/three";
 
 const Main = styled("main", {
   width: "100vw",
@@ -23,6 +25,28 @@ const Overlay = styled("div", {
   color: "white",
   maxWidth: "480px",
 });
+
+const RandomRotateGroup = ({ children }: { children: any }) => {
+  const [{ rotation, scale }, api] = useSpring(() => ({
+    rotation: [0, 0, 0],
+    scale: [1, 1, 1],
+  }));
+  // useEffect(() => {
+  //   function doThing() {
+  //     api.start({
+  //       rotation: [
+  //         2 * Math.PI * Math.random(),
+  //         2 * Math.PI * Math.random(),
+  //         2 * Math.PI * Math.random(),
+  //       ],
+  //     });
+  //     setTimeout(doThing, 2000);
+  //   }
+  //   doThing();
+  // }, [api]);
+
+  return <animated.group rotation={rotation}>{children}</animated.group>;
+};
 
 const Home: NextPage = () => {
   return (
@@ -41,9 +65,13 @@ const Home: NextPage = () => {
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
             <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
-            <Box args={[1, 1, 1]}>
-              <meshStandardMaterial color="red" />
-            </Box>
+            <RandomRotateGroup>
+              <Ribbon id={1} color="#7b505c" />
+              <Ribbon id={64} color="#E8AE3B" />
+              <Ribbon id={256} color="#E8AE3B" />
+              <Ribbon id={512} color="#E8AE3B" />
+              <Ribbon id={128} color="#e4d6cf" />
+            </RandomRotateGroup>
             <Effects />
           </Suspense>
           <OrbitControls
@@ -58,16 +86,19 @@ const Home: NextPage = () => {
           <Panel>
             <PanelLegend>Welcome</PanelLegend>
             <Text>Hi, I’m Ben</Text>
+            <br />
 
             <Text>
               I&apos;m a UI Engineer, designer, generative artist and
               independent game developer living in Brisbane, Australia.
             </Text>
+            <br />
 
             <Text>
               I make powerful, intuitive and joyful software using the tools I
               love.
             </Text>
+            <br />
 
             <Text>
               You&apos;ll find me working at the intersection of art,
@@ -97,45 +128,6 @@ const Home: NextPage = () => {
               <code>[A]</code> are.na
             </Button>
             <br />
-          </Panel>
-          <Panel>
-            <PanelLegend>heads up</PanelLegend>
-            <Text>
-              <strong>20th April, 2420</strong> <br />
-              You can&amp;t quite remember how you got here.
-            </Text>
-            <br />
-            <Button>
-              <code>[I]</code> open inventory
-            </Button>
-            <br />
-            <Button>
-              <code>[Q]</code> view quests
-            </Button>
-            <br />
-            <Button>
-              <code>[ESC]</code> settings
-            </Button>
-            <br />
-          </Panel>
-          <Panel>
-            <PanelLegend>inventory</PanelLegend>
-            <Text>
-              1 x Mouldy Bread
-              <br />
-              10 x Legendary Runic Halberd
-            </Text>
-          </Panel>
-          <Panel>
-            <PanelLegend>inbox (1 unread)</PanelLegend>
-            <Text>
-              <strong>WHERE THE F**K IS MY MONEY?</strong>
-              <br />
-              Payment terms
-              <br />
-              15% off &quot;Mouldy Bread&quot; today!
-              <br />
-            </Text>
           </Panel>
         </Interface>
       </Overlay>

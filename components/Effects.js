@@ -58,7 +58,7 @@ export default function Effects() {
       <renderPass attachArray="passes" scene={scene} camera={camera} />
       <afterimagePass
         attachArray="passes"
-        args={[0.98]}
+        args={[0.97]}
         scene={scene}
         camera={camera}
       />
@@ -70,12 +70,12 @@ export default function Effects() {
         camera={camera}
       /> */}
 
-      <shaderPass
+      {/* <shaderPass
         attachArray="passes"
         args={[TiltShiftShader]}
         scene={scene}
         camera={camera}
-      />
+      /> */}
       <shaderPass
         ref={noisePass}
         attachArray="passes"
@@ -83,13 +83,13 @@ export default function Effects() {
         scene={scene}
         camera={camera}
       />
-      <shaderPass
+      {/* <shaderPass
         ref={spacePass}
         attachArray="passes"
         args={[SpaceShader]}
         scene={scene}
         camera={camera}
-      />
+      /> */}
       {/* <shaderPass attachArray="passes" args={[RGBShiftShader]} scene={scene} camera={camera} /> */}
       {/* <unrealBloomPass attachArray="passes" args={[aspect, 0.4, 0.5, 0]} /> */}
       {/* <shaderPass
