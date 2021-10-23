@@ -26,6 +26,14 @@ const Overlay = styled("div", {
   maxWidth: "480px",
 });
 
+const OverlaySmall = styled("div", {
+  position: "fixed",
+  right: 0,
+  bottom: "165px",
+  color: "white",
+  width: "480px",
+});
+
 const RandomRotateGroup = ({ children }: { children: any }) => {
   const [{ rotation, scale }, api] = useSpring(() => ({
     rotation: [0, 0, 0],
@@ -202,6 +210,21 @@ const Home: NextPage = () => {
           </Panel>
         </Interface>
       </Overlay>
+      <OverlaySmall className="source-panel">
+        <Interface>
+          <Panel>
+            <PanelLegend>View Source</PanelLegend>
+            <Text>
+              View the code for this site on github, it&apos;s built with
+              next.js, react-three-fiber and love.
+            </Text>
+            <br />
+            <Button>
+              <code>[Q]</code> View Code
+            </Button>
+          </Panel>
+        </Interface>
+      </OverlaySmall>
 
       {/* <footer className={styles.footer}>
         <a

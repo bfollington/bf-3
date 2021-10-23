@@ -16,3 +16,13 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.source-panel {
+  display: none;
+}
+
+@media only screen and (min-width: 960px) {
+  .source-panel {
+    display: block;
+  }
+}
