@@ -9,7 +9,7 @@ export const Panel = styled("fieldset", {
   borderWidth: "2px",
   borderColor: ACCENT(0.5),
   borderStyle: "solid",
-  backgroundColor: "rgba(0, 0, 0, 0.7)",
+  backgroundColor: "rgba(0, 0, 0, 0.85)",
   padding: "8px",
   fontFamily: "'Space Mono', monospace",
   fontSize: "18px",

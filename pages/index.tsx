@@ -58,7 +58,10 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Canvas camera={{ position: [15, 15, 15] }}>
+        <Canvas
+          style={{ position: "fixed" }}
+          camera={{ position: [15, 15, 15] }}
+        >
           <color attach="background" args={["black"]} />
           {/* <Sky azimuth={1} inclination={0.1} distance={1000} /> */}
           <ambientLight intensity={0.1} />
@@ -98,20 +101,15 @@ const Home: NextPage = () => {
               I make powerful, intuitive and joyful software using the tools I
               love.
             </Text>
-            <br />
+            {/* <br /> */}
 
-            <Text>
+            {/* <Text>
               You&apos;ll find me working at the intersection of art,
               technology, psychology, philosophy and human connection.
-            </Text>
+            </Text> */}
           </Panel>
           <Panel>
-            <PanelLegend>About Me</PanelLegend>
-            <Text>You can find me around the internet:</Text>
-            <Button>
-              <code>[C]</code> cv
-            </Button>
-            <br />
+            <PanelLegend>Social</PanelLegend>
             <Button>
               <code>[T]</code> twitter
             </Button>
@@ -121,13 +119,86 @@ const Home: NextPage = () => {
             </Button>
             <br />
             <Button>
-              <code>[V]</code> twitch
+              <code>[W]</code> twitch
             </Button>
             <br />
             <Button>
               <code>[A]</code> are.na
             </Button>
             <br />
+            <Button>
+              <code>[I]</code> itch.io
+            </Button>
+            <br />
+          </Panel>
+          <Panel>
+            <PanelLegend>Work</PanelLegend>
+            <Text>
+              I will be open for freelance and contract work early 2022.
+            </Text>
+            <br />
+            <Text>
+              {" "}
+              I have extensive exprience with UI/UX engineering, design systems,
+              gamedev, interactive visuals (webgl &amp; canvas) and mentoring
+              enthusiastic developers.
+            </Text>
+            <br />
+            <Button>
+              <code>[C]</code> cv
+            </Button>
+            <br />
+            <Button>
+              <code>[G]</code> github
+            </Button>
+          </Panel>
+          <Panel>
+            <PanelLegend>Projects</PanelLegend>
+            <Text>
+              In my own time I develop commercial and free games, release OSS,
+              blog about programming and get sentimental about art, life,
+              philosophy and meditation.
+            </Text>
+            <br />
+            <Button>
+              <code>[S]</code> The Song of The Fae
+            </Button>
+            <br />
+            <Button>
+              <code>[F]</code> fundamental.sh
+            </Button>
+            <br />
+            <Button>
+              <code>[V]</code> shimmeringvoid
+            </Button>
+            <br />
+            <Button>
+              <code>[P]</code> TwoPM Studios
+            </Button>
+          </Panel>
+          <Panel>
+            <PanelLegend>Generative Art</PanelLegend>
+            <Button>
+              <code>[G]</code> Gallery
+            </Button>
+            <br />
+            <Button>
+              <code>[H]</code> hicetnunc
+            </Button>
+            <br />
+            <Button>
+              <code>[I]</code> instagram
+            </Button>
+          </Panel>
+          <Panel>
+            <PanelLegend>Support Me</PanelLegend>
+            <Button>
+              <code>[E]</code> Donate ETH
+            </Button>
+            <br />
+            <Button>
+              <code>[4]</code> Donate $
+            </Button>
           </Panel>
         </Interface>
       </Overlay>
