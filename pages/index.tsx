@@ -35,25 +35,7 @@ const OverlaySmall = styled("div", {
 });
 
 const RandomRotateGroup = ({ children }: { children: any }) => {
-  const [{ rotation, scale }, api] = useSpring(() => ({
-    rotation: [0, 0, 0],
-    scale: [1, 1, 1],
-  }));
-  // useEffect(() => {
-  //   function doThing() {
-  //     api.start({
-  //       rotation: [
-  //         2 * Math.PI * Math.random(),
-  //         2 * Math.PI * Math.random(),
-  //         2 * Math.PI * Math.random(),
-  //       ],
-  //     });
-  //     setTimeout(doThing, 2000);
-  //   }
-  //   doThing();
-  // }, [api]);
-
-  return <animated.group rotation={rotation}>{children}</animated.group>;
+  return <group>{children}</group>;
 };
 
 const Home: NextPage = () => {
