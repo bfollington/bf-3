@@ -120,6 +120,11 @@ const Home: NextPage = () => {
               <code>[I]</code> itch.io
             </Button>
             <br />
+            <Button>
+              {/* https://codesandbox.io/u/bfollington */}
+              <code>[B]</code> codesandbox
+            </Button>
+            <br />
           </Panel>
           <Panel>
             <PanelLegend>Work</PanelLegend>
@@ -169,7 +174,7 @@ const Home: NextPage = () => {
           <Panel>
             <PanelLegend>Generative Art</PanelLegend>
             <Button>
-              <code>[G]</code> Gallery
+              <code>[Y]</code> Gallery
             </Button>
             <br />
             <Button>
