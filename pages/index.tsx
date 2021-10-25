@@ -252,6 +252,19 @@ const Home: NextPage = () => {
                 >
                   twopm studios
                 </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit(
+                      "https://www.are.na/ben-follington/soundtrack-to-my-life",
+                      300
+                    )
+                  }
+                  index={4}
+                  key={4}
+                  activationKey="L"
+                >
+                  soundtrack to my life
+                </ActionButton>,
               ]}
             >
               <Text>
