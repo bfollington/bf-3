@@ -42,7 +42,7 @@ export const Panel = styled("fieldset", {
 
 const panelListVariants = {
   open: {
-    transition: { staggerChildren: 0.07, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.3 },
   },
   closed: {
     transition: { staggerChildren: 0.05, staggerDirection: -1 },
@@ -66,7 +66,7 @@ const animatedPanelVariants = {
     // },
   },
   closed: {
-    y: -50,
+    y: 48,
     opacity: 0,
     // transition: {
     //   y: { stiffness: 1000 },
@@ -231,7 +231,7 @@ const actionButtonVariants = {
     // },
   },
   closed: {
-    y: -50,
+    y: 25,
     opacity: 0,
     // transition: {
     //   y: { stiffness: 1000 },

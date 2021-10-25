@@ -329,27 +329,29 @@ const Home: NextPage = () => {
       </Overlay>
       <OverlaySmall className="source-panel">
         <Interface>
-          <AnimatedPanel
-            title="View Source"
-            toggleable={false}
-            actions={[
-              <ActionButton
-                onActivate={() =>
-                  visit("https://github.com/bfollington/bf-3", 300)
-                }
-                index={0}
-                key={0}
-                activationKey="Q"
-              >
-                view code
-              </ActionButton>,
-            ]}
-          >
-            <Text>
-              View the code for this site on github, it&apos;s built with
-              next.js, react-three-fiber and love.
-            </Text>
-          </AnimatedPanel>
+          <PanelList>
+            <AnimatedPanel
+              title="View Source"
+              toggleable={false}
+              actions={[
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://github.com/bfollington/bf-3", 300)
+                  }
+                  index={0}
+                  key={0}
+                  activationKey="Q"
+                >
+                  view code
+                </ActionButton>,
+              ]}
+            >
+              <Text>
+                View the code for this site on github, it&apos;s built with
+                next.js, react-three-fiber and love.
+              </Text>
+            </AnimatedPanel>
+          </PanelList>
         </Interface>
       </OverlaySmall>
 
