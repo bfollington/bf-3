@@ -159,7 +159,7 @@ const Home: NextPage = () => {
                   are.na
                 </ActionButton>,
                 <ActionButton
-                  onActivate={() => visit("https://itch.io/twopm", 300)}
+                  onActivate={() => visit("https://twopm.itch.io/", 300)}
                   index={4}
                   key={4}
                   activationKey="I"

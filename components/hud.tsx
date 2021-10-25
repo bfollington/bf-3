@@ -1,14 +1,7 @@
-import { styled, keyframes } from "@stitches/react";
+import { keyframes, styled } from "@stitches/react";
+import { AnimatePresence, motion } from "framer-motion";
+import { ReactNode, ReactNodeArray, RefObject, useRef, useState } from "react";
 import { blip, select } from "./sounds";
-import {
-  MutableRefObject,
-  ReactNode,
-  ReactNodeArray,
-  RefObject,
-  useRef,
-  useState,
-} from "react";
-import { AnimatePresence, motion, useCycle } from "framer-motion";
 
 let useKeyDown = (...meh: any[]) => {};
 
