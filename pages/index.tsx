@@ -1,15 +1,22 @@
-import { Box, OrbitControls } from "@react-three/drei";
-import { Canvas, useStore } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import { styled } from "@stitches/react";
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import React, { Suspense, useEffect, useRef } from "react";
-import { PanelLegend, Interface, Text, Button, Panel } from "../components/hud";
-import styles from "../styles/Home.module.css";
+import React, { Suspense, useEffect, useState } from "react";
 import Effects from "../components/Effects";
+import {
+  ActionButton,
+  ActionButtonList,
+  AnimatedPanel,
+  Button,
+  Interface,
+  PanelLegend,
+  PanelList,
+  Text,
+} from "../components/hud";
 import Ribbon from "../components/Ribbon";
-import { useSpring, animated } from "@react-spring/three";
+import styles from "../styles/Home.module.css";
 
 const Main = styled("main", {
   width: "100vw",
@@ -29,7 +36,7 @@ const Overlay = styled("div", {
 const OverlaySmall = styled("div", {
   position: "fixed",
   right: 0,
-  bottom: "165px",
+  bottom: "195px",
   color: "white",
   width: "480px",
 });
@@ -38,7 +45,24 @@ const RandomRotateGroup = ({ children }: { children: any }) => {
   return <group>{children}</group>;
 };
 
+const visit = (url: string, delay: number = 0) => {
+  if (delay > 0) {
+    setTimeout(() => {
+      window.open(url, "_blank");
+    }, delay);
+  } else {
+    window.open(url, "_blank");
+  }
+};
+
 const Home: NextPage = () => {
+  const showBg = false;
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, [setMounted]);
+
   return (
     <div className={styles.container}>
       <Head>
@@ -48,168 +72,284 @@ const Home: NextPage = () => {
       </Head>
 
       <Main>
-        <Canvas
-          style={{ position: "fixed" }}
-          camera={{ position: [15, 15, 15] }}
-        >
-          <color attach="background" args={["black"]} />
-          {/* <Sky azimuth={1} inclination={0.1} distance={1000} /> */}
-          <ambientLight intensity={0.1} />
-          <pointLight position={[10, 10, 10]} />
-          <Suspense fallback={null}>
-            <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
-            <RandomRotateGroup>
-              <Ribbon id={1} color="#7b505c" />
-              <Ribbon id={64} color="#E8AE3B" />
-              <Ribbon id={256} color="#E8AE3B" />
-              <Ribbon id={512} color="#E8AE3B" />
-              <Ribbon id={128} color="#e4d6cf" />
-            </RandomRotateGroup>
-            <Effects />
-          </Suspense>
-          <OrbitControls
-            minPolarAngle={Math.PI / 10}
-            maxPolarAngle={Math.PI / 1.5}
-          />
-        </Canvas>
+        {showBg && (
+          <Canvas
+            style={{ position: "fixed" }}
+            camera={{ position: [15, 15, 15] }}
+          >
+            <color attach="background" args={["black"]} />
+            {/* <Sky azimuth={1} inclination={0.1} distance={1000} /> */}
+            <ambientLight intensity={0.1} />
+            <pointLight position={[10, 10, 10]} />
+            <Suspense fallback={null}>
+              <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
+              <RandomRotateGroup>
+                <Ribbon id={1} color="#7b505c" />
+                <Ribbon id={64} color="#E8AE3B" />
+                <Ribbon id={256} color="#E8AE3B" />
+                <Ribbon id={512} color="#E8AE3B" />
+                <Ribbon id={128} color="#e4d6cf" />
+              </RandomRotateGroup>
+              <Effects />
+            </Suspense>
+            <OrbitControls
+              minPolarAngle={Math.PI / 10}
+              maxPolarAngle={Math.PI / 1.5}
+            />
+          </Canvas>
+        )}
       </Main>
 
       <Overlay>
         <Interface>
-          <Panel>
-            <PanelLegend>Welcome</PanelLegend>
-            <Text>Hi, I’m Ben</Text>
-            <br />
+          <PanelList>
+            <AnimatedPanel title="Welcome">
+              <Text>Hi, I’m Ben</Text>
+              <br />
 
-            <Text>
-              I&apos;m a UI Engineer, designer, generative artist and
-              independent game developer living in Brisbane, Australia.
-            </Text>
-            <br />
+              <Text>
+                I&apos;m a UI Engineer, designer, generative artist and
+                independent game developer living in Brisbane, Australia.
+              </Text>
+              <br />
 
-            <Text>
-              I make powerful, intuitive and joyful software using the tools I
-              love.
-            </Text>
-            {/* <br /> */}
-
-            {/* <Text>
-              You&apos;ll find me working at the intersection of art,
-              technology, psychology, philosophy and human connection.
-            </Text> */}
-          </Panel>
-          <Panel>
-            <PanelLegend>Social</PanelLegend>
-            <Button>
-              <code>[T]</code> twitter
-            </Button>
-            <br />
-            <Button>
-              <code>[G]</code> github
-            </Button>
-            <br />
-            <Button>
-              <code>[W]</code> twitch
-            </Button>
-            <br />
-            <Button>
-              <code>[A]</code> are.na
-            </Button>
-            <br />
-            <Button>
-              <code>[I]</code> itch.io
-            </Button>
-            <br />
-            <Button>
-              {/* https://codesandbox.io/u/bfollington */}
-              <code>[B]</code> codesandbox
-            </Button>
-            <br />
-          </Panel>
-          <Panel>
-            <PanelLegend>Work</PanelLegend>
-            <Text>
-              I will be open for freelance and contract work early 2022.
-            </Text>
-            <br />
-            <Text>
-              {" "}
-              I have extensive exprience with UI/UX engineering, design systems,
-              gamedev, interactive visuals (webgl &amp; canvas) and mentoring
-              enthusiastic developers.
-            </Text>
-            <br />
-            <Button>
-              <code>[C]</code> cv
-            </Button>
-            <br />
-            <Button>
-              <code>[G]</code> github
-            </Button>
-          </Panel>
-          <Panel>
-            <PanelLegend>Projects</PanelLegend>
-            <Text>
-              In my own time I develop commercial and free games, release OSS,
-              blog about programming and get sentimental about art, life,
-              philosophy and meditation.
-            </Text>
-            <br />
-            <Button>
-              <code>[S]</code> The Song of The Fae
-            </Button>
-            <br />
-            <Button>
-              <code>[F]</code> fundamental.sh
-            </Button>
-            <br />
-            <Button>
-              <code>[V]</code> shimmeringvoid
-            </Button>
-            <br />
-            <Button>
-              <code>[P]</code> TwoPM Studios
-            </Button>
-          </Panel>
-          <Panel>
-            <PanelLegend>Generative Art</PanelLegend>
-            <Button>
-              <code>[Y]</code> Gallery
-            </Button>
-            <br />
-            <Button>
-              <code>[H]</code> hicetnunc
-            </Button>
-            <br />
-            <Button>
-              <code>[I]</code> instagram
-            </Button>
-          </Panel>
-          <Panel>
-            <PanelLegend>Support Me</PanelLegend>
-            <Button>
-              <code>[E]</code> Donate ETH
-            </Button>
-            <br />
-            <Button>
-              <code>[4]</code> Donate $
-            </Button>
-          </Panel>
+              <Text>
+                I make powerful, intuitive and joyful software using the tools I
+                love.
+              </Text>
+            </AnimatedPanel>
+            <AnimatedPanel
+              title="Social"
+              expanded
+              actions={[
+                <ActionButton
+                  onActivate={() => visit("https://twitter.com/vivavolt", 300)}
+                  index={0}
+                  key={0}
+                  activationKey="T"
+                >
+                  twitter
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://github.com/bfollington", 300)
+                  }
+                  index={1}
+                  key={1}
+                  activationKey="G"
+                >
+                  github
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() => visit("https://twitch.tv/vivavolt", 300)}
+                  index={2}
+                  key={2}
+                  activationKey="W"
+                >
+                  twitch
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://www.are.na/ben-follington", 300)
+                  }
+                  index={3}
+                  key={3}
+                  activationKey="A"
+                >
+                  are.na
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() => visit("https://itch.io/twopm", 300)}
+                  index={4}
+                  key={4}
+                  activationKey="I"
+                >
+                  itch.io
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://codesandbox.io/u/bfollington", 300)
+                  }
+                  index={5}
+                  key={5}
+                  activationKey="B"
+                >
+                  codesandbox
+                </ActionButton>,
+              ]}
+            ></AnimatedPanel>
+            <AnimatedPanel
+              title="Work"
+              actions={[
+                <ActionButton
+                  onActivate={() => visit("https://cv.bf.wtf", 300)}
+                  index={0}
+                  key={0}
+                  activationKey="C"
+                >
+                  cv
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() => visit("https://github.com", 300)}
+                  index={1}
+                  key={1}
+                  activationKey="G"
+                >
+                  github
+                </ActionButton>,
+              ]}
+            >
+              <Text>
+                I will be open for freelance and contract work early 2022.
+              </Text>
+              <br />
+              <Text>
+                {" "}
+                I have extensive exprience with UI/UX engineering, design
+                systems, gamedev, interactive visuals (webgl &amp; canvas) and
+                mentoring enthusiastic developers.
+              </Text>
+            </AnimatedPanel>
+            <AnimatedPanel
+              title="Projects"
+              actions={[
+                <ActionButton
+                  onActivate={() =>
+                    visit(
+                      "https://store.steampowered.com/app/1274210/The_Song_of_the_Fae/",
+                      300
+                    )
+                  }
+                  index={0}
+                  key={0}
+                  activationKey="S"
+                >
+                  the song of the fae
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() => visit("https://fundamental.sh", 300)}
+                  index={1}
+                  key={1}
+                  activationKey="F"
+                >
+                  fundamental.sh
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://shimmeringvoid.substack.com/", 300)
+                  }
+                  index={2}
+                  key={2}
+                  activationKey="V"
+                >
+                  shimmeringvoid
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() => visit("https://twopm.studio", 300)}
+                  index={3}
+                  key={3}
+                  activationKey="P"
+                >
+                  twopm studios
+                </ActionButton>,
+              ]}
+            >
+              <Text>
+                In my own time I develop commercial and free games, release OSS,
+                blog about programming and get sentimental about art, life,
+                philosophy and meditation.
+              </Text>
+            </AnimatedPanel>
+            <AnimatedPanel
+              title="Generative Art"
+              actions={[
+                <ActionButton
+                  onActivate={() =>
+                    visit(
+                      "https://www.are.na/ben-follington/generative-art-xi7hppoqskq",
+                      300
+                    )
+                  }
+                  index={0}
+                  key={0}
+                  activationKey="Y"
+                >
+                  gallery
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://hicetnunc.xyz/shimmeringvoid", 300)
+                  }
+                  index={1}
+                  key={1}
+                  activationKey="H"
+                >
+                  hicetnunc2000
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() =>
+                    visit("https://www.instagram.com/shimmeringvoid/", 300)
+                  }
+                  index={2}
+                  key={2}
+                  activationKey="I"
+                >
+                  instagram
+                </ActionButton>,
+              ]}
+            ></AnimatedPanel>
+            <AnimatedPanel
+              title="Support Me"
+              actions={[
+                <ActionButton
+                  onActivate={() =>
+                    visit(
+                      "https://www.blockchain.com/eth/address/0x981e493b795A7a28c43Bf8d7a8E125C419435Fa7",
+                      300
+                    )
+                  }
+                  index={0}
+                  key={0}
+                  activationKey="E"
+                >
+                  donate ETH
+                </ActionButton>,
+                <ActionButton
+                  onActivate={() => visit("https://ko-fi.com/vivavolt", 300)}
+                  index={1}
+                  key={1}
+                  activationKey="4"
+                >
+                  donate $
+                </ActionButton>,
+              ]}
+            ></AnimatedPanel>
+          </PanelList>
         </Interface>
       </Overlay>
       <OverlaySmall className="source-panel">
         <Interface>
-          <Panel>
-            <PanelLegend>View Source</PanelLegend>
+          <AnimatedPanel
+            title="View Source"
+            toggleable={false}
+            actions={[
+              <ActionButton
+                onActivate={() =>
+                  visit("https://github.com/bfollington/bf-3", 300)
+                }
+                index={0}
+                key={0}
+                activationKey="Q"
+              >
+                view code
+              </ActionButton>,
+            ]}
+          >
             <Text>
               View the code for this site on github, it&apos;s built with
               next.js, react-three-fiber and love.
             </Text>
-            <br />
-            <Button>
-              <code>[Q]</code> View Code
-            </Button>
-          </Panel>
+          </AnimatedPanel>
         </Interface>
       </OverlaySmall>
 
