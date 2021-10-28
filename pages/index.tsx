@@ -1,5 +1,5 @@
-import { OrbitControls } from "@react-three/drei";
-import { Canvas } from "@react-three/fiber";
+import { Html, OrbitControls } from "@react-three/drei";
+import { Canvas, useThree } from "@react-three/fiber";
 import { styled } from "@stitches/react";
 import type { NextPage } from "next";
 import Head from "next/head";
@@ -16,6 +16,8 @@ import Ribbon from "../components/Ribbon";
 import RibbonHack from "../components/RibbonHack";
 import { RibbonRedux } from "../components/RibbonRedux";
 import styles from "../styles/Home.module.css";
+import * as THREE from "three";
+import { useScreenshot } from "../components/useScreenshot";
 
 const Main = styled("main", {
   width: "100vw",
@@ -52,6 +54,40 @@ const visit = (url: string, delay: number = 0) => {
   } else {
     window.open(url, "_blank");
   }
+};
+
+const DesktopOnly = () => {
+  return (
+    <PanelList>
+      <AnimatedPanel
+        title="View Source"
+        toggleable={false}
+        actions={[
+          // <ActionButton
+          //   onActivate={() => {}}
+          //   index={0}
+          //   key={0}
+          //   activationKey="O"
+          // >
+          //   capture screenshot
+          // </ActionButton>,
+          <ActionButton
+            onActivate={() => visit("https://github.com/bfollington/bf-3", 300)}
+            index={0}
+            key={0}
+            activationKey="Q"
+          >
+            view code
+          </ActionButton>,
+        ]}
+      >
+        <Text>
+          View the code for this site on github, it&apos;s built with next.js,
+          react-three-fiber and love.
+        </Text>
+      </AnimatedPanel>
+    </PanelList>
+  );
 };
 
 const Home: NextPage = () => {
@@ -346,29 +382,7 @@ const Home: NextPage = () => {
       </Overlay>
       <OverlaySmall className="source-panel">
         <Interface>
-          <PanelList>
-            <AnimatedPanel
-              title="View Source"
-              toggleable={false}
-              actions={[
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://github.com/bfollington/bf-3", 300)
-                  }
-                  index={0}
-                  key={0}
-                  activationKey="Q"
-                >
-                  view code
-                </ActionButton>,
-              ]}
-            >
-              <Text>
-                View the code for this site on github, it&apos;s built with
-                next.js, react-three-fiber and love.
-              </Text>
-            </AnimatedPanel>
-          </PanelList>
+          <DesktopOnly />
         </Interface>
       </OverlaySmall>
 

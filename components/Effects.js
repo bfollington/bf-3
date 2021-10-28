@@ -56,6 +56,7 @@ export default function Effects() {
   return (
     <effectComposer ref={composer} args={[gl]}>
       <renderPass attachArray="passes" scene={scene} camera={camera} />
+      <unrealBloomPass attachArray="passes" args={[aspect, 0.1, 0.5, 0]} />
       <afterimagePass
         attachArray="passes"
         args={[0.97]}
@@ -70,12 +71,12 @@ export default function Effects() {
         camera={camera}
       /> */}
 
-      {/* <shaderPass
+      <shaderPass
         attachArray="passes"
         args={[TiltShiftShader]}
         scene={scene}
         camera={camera}
-      /> */}
+      />
       <shaderPass
         ref={noisePass}
         attachArray="passes"
@@ -83,15 +84,14 @@ export default function Effects() {
         scene={scene}
         camera={camera}
       />
-      {/* <shaderPass
+      <shaderPass
         ref={spacePass}
         attachArray="passes"
         args={[SpaceShader]}
         scene={scene}
         camera={camera}
-      /> */}
+      />
       {/* <shaderPass attachArray="passes" args={[RGBShiftShader]} scene={scene} camera={camera} /> */}
-      {/* <unrealBloomPass attachArray="passes" args={[aspect, 0.4, 0.5, 0]} /> */}
       {/* <shaderPass
         ref={ditherPass}
         attachArray="passes"
