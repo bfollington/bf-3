@@ -13,7 +13,7 @@
     "@react-three/fiber": "^7.0.17",
     "@stitches/react": "^1.2.5",
     "framer-motion": "^4.1.17",
-    "next": "11.1.2",
+    "next": "^12.0.1",
     "next-transpile-modules": "^8.0.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
