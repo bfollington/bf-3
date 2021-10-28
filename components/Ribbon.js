@@ -1,10 +1,17 @@
 import * as THREE from "three";
-import React, { useRef, useMemo, useEffect, useState } from "react";
+import React, {
+  useRef,
+  useMemo,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import SimplexNoise from "simplex-noise";
 import { useFrame, useLoader } from "@react-three/fiber";
 // import bg from "./resources/seamless8.png";
 // import "./materials/ShinyMaterial";
 import { Html } from "@react-three/drei";
+import { Vector3 } from "three";
 
 var RIBBON_LEN = 100; //number of spine point
 
@@ -89,7 +96,7 @@ export default function Ribbon({ id = 1, color = "red" }) {
 
   const [debug, setDebug] = useState("");
 
-  const onInit = () => {
+  const onInit = useCallback(() => {
     noiseId.current = id / 300;
 
     // generate thiccness
@@ -117,7 +124,7 @@ export default function Ribbon({ id = 1, color = "red" }) {
     arm3.current = new THREE.Vector3(1.5 * armLenFac, 0, 0);
 
     onReset();
-  };
+  }, [id]);
 
   const onReset = () => {
     var i;

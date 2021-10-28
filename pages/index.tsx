@@ -13,6 +13,8 @@ import {
   Text,
 } from "../components/hud";
 import Ribbon from "../components/Ribbon";
+import RibbonHack from "../components/RibbonHack";
+import { RibbonRedux } from "../components/RibbonRedux";
 import styles from "../styles/Home.module.css";
 
 const Main = styled("main", {
@@ -83,6 +85,8 @@ const Home: NextPage = () => {
             <pointLight position={[10, 10, 10]} />
             <Suspense fallback={null}>
               <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
+              <pointLight position={[0, -30, 0]} color="pink" intensity={5} />
+              <pointLight position={[0, 0, 30]} color="purple" intensity={5} />
               <RandomRotateGroup>
                 <Ribbon id={1} color="#7b505c" />
                 <Ribbon id={64} color="#E8AE3B" />
