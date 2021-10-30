@@ -426,7 +426,7 @@ const Home: NextPage = () => {
           {" " + pkg.version}
         </Text>
       </VersionTag>
-      <HudGrid>
+      <HudGrid className="hud">
         {view === "maximised" && (
           <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
             <Padding layout="md">
