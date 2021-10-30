@@ -54,6 +54,7 @@ const Prompt = styled("div", {
 const Overlay = styled("div", {
   gridColumn: "1 / 5",
   gridRow: "1 / 5",
+  paddingBottom: "128px",
   // padding: "$space$2",
   color: "white",
   overflowY: "auto",
@@ -66,6 +67,7 @@ const Overlay = styled("div", {
         gridColumn: "1 / 5",
         gridRow: "1 / 5",
         maxWidth: "512px",
+        paddingBottom: "128px",
       },
       md: {
         gridColumn: "1 / 3",
