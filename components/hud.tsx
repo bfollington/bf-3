@@ -1,7 +1,17 @@
-import { keyframes, styled } from "@stitches/react";
+import { keyframes } from "@stitches/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ReactNode, ReactNodeArray, RefObject, useRef, useState } from "react";
-import { blip, select } from "./sounds";
+import React, {
+  ReactNode,
+  ReactNodeArray,
+  RefObject,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+import { styled } from "../stitches";
+import { blip, closePanel, mount, openPanel, select } from "./sounds";
+import { Stack } from "./Stack";
 
 let useKeyDown = (...meh: any[]) => {};
 
@@ -20,17 +30,21 @@ export const Panel = styled("fieldset", {
   borderStyle: "solid",
   backgroundColor: "rgba(0, 0, 0, 0.85)",
   padding: "8px",
+  margin: 0,
   fontFamily: "'Space Mono', monospace",
   fontSize: "18px",
   color: ACCENT(),
   textAlign: "left",
-  marginBottom: "8px",
   boxShadow: `
   0 1px 1px hsl(0deg 0% 0% / 0.175),
   0 2px 2px hsl(0deg 0% 0% / 0.175),
   0 4px 4px hsl(0deg 0% 0% / 0.175),
   0 8px 8px hsl(0deg 0% 0% / 0.175),
   0 16px 16px hsl(0deg 0% 0% / 0.175)`,
+
+  "& + &": {
+    marginTop: "$space$2",
+  },
 });
 
 const panelListVariants = {
@@ -43,9 +57,15 @@ const panelListVariants = {
 };
 
 export const PanelList = ({ children }: { children: ReactNode }) => {
+  useEffect(() => {
+    React.Children.forEach(children, (c, i) => {
+      setTimeout(openPanel, i * 100 + 500);
+    });
+  }, [children]);
+
   return (
     <motion.div initial="closed" animate="open" variants={panelListVariants}>
-      {children}
+      <Stack direction="column">{children}</Stack>
     </motion.div>
   );
 };
@@ -88,7 +108,12 @@ export const AnimatedPanel = ({
         <PanelLegend>
           {toggleable && (
             <>
-              <PanelLegendExpandButton onClick={() => setOpen(!open)}>
+              <PanelLegendExpandButton
+                onClick={() => {
+                  setOpen(!open);
+                  open ? closePanel() : openPanel();
+                }}
+              >
                 [{open ? "-" : "+"}]
               </PanelLegendExpandButton>{" "}
             </>
@@ -278,4 +303,6 @@ export const Interface = styled("div", {
 
 export const Text = styled("p", {
   margin: 0,
+  fontFamily: "'Space Mono', monospace",
+  fontSize: "18px",
 });

@@ -306,7 +306,7 @@
     "@react-spring/rafz" "~9.3.0"
     "@react-spring/types" "~9.3.0"
 
-"@react-spring/three@~9.3.0":
+"@react-spring/three@^9.3.0", "@react-spring/three@~9.3.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@react-spring/three/-/three-9.3.0.tgz#e3fc49de1411eb1a7aa937fec8db33252f11d294"
   integrity sha512-RKMXXdcNK0nbwLbmle/0KT/idGGpOxvI5lT1KtN8R3cgJWQBKYWVtzg+B/RgmQVNxO/QNlsKGWTjURockTRSVQ==

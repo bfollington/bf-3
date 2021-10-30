@@ -1,6 +1,5 @@
 import { Html, OrbitControls } from "@react-three/drei";
 import { Canvas, useThree } from "@react-three/fiber";
-import { styled } from "@stitches/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import React, { Suspense, useEffect, useState } from "react";
@@ -18,28 +17,143 @@ import { RibbonRedux } from "../components/RibbonRedux";
 import styles from "../styles/Home.module.css";
 import * as THREE from "three";
 import { useScreenshot } from "../components/useScreenshot";
+import { styled } from "../stitches";
+import { animated, useSpring } from "@react-spring/three";
+import { version } from "../package.json";
+import { entry, magic } from "../components/sounds";
 
 const Main = styled("main", {
   width: "100vw",
   height: "100vh",
+  position: "fixed",
+  margin: 0,
+  padding: 0,
+});
+
+const VersionTag = styled("div", {
+  position: "fixed",
+  right: "$2",
+  bottom: "$2",
+  opacity: 0.3,
+  color: "white",
+  pointerEvents: "none",
 });
 
 const Overlay = styled("div", {
-  position: "absolute",
+  gridColumn: "1 / 5",
+  gridRow: "1 / 5",
+  // padding: "$space$2",
+  color: "white",
+  overflowY: "auto",
+
+  pointerEvents: "all",
+
+  variants: {
+    layout: {
+      sm: {
+        gridColumn: "1 / 5",
+        gridRow: "1 / 5",
+        maxWidth: "512px",
+      },
+      md: {
+        gridColumn: "1 / 3",
+        gridRow: "1 / 5",
+      },
+      lg: {
+        gridColumn: "1 / 3",
+        gridRow: "1 / 5",
+        minWidth: "480px",
+        maxWidth: "512px",
+      },
+    },
+  },
+});
+
+const Padding = styled("div", {
+  padding: "$2",
+  boxSizing: "border-box",
+  variants: {
+    layout: {
+      sm: {
+        padding: "$1",
+      },
+      md: {
+        padding: "$2",
+      },
+      lg: {
+        padding: "$3",
+      },
+    },
+  },
+});
+
+const HudGrid = styled("div", {
+  display: "grid",
+  gridTemplateColumns: "25% 25% 25% 25%",
+  gridTemplateRows: "25% 25% 25% 25%",
+
+  position: "fixed",
+  pointerEvents: "none",
+
   top: 0,
   left: 0,
-  right: 0,
-  bottom: 0,
+  width: "100vw",
+  height: "100vh",
+});
+
+const OverlayRight = styled("div", {
+  display: "none",
+  // padding: "$space$2",
   color: "white",
-  maxWidth: "480px",
+  overflowY: "auto",
+
+  pointerEvents: "all",
+
+  variants: {
+    layout: {
+      sm: {
+        display: "none",
+      },
+      md: {
+        display: "block",
+        gridColumn: "4 / 5",
+        gridRow: "1 / 5",
+      },
+      lg: {
+        justifyItems: "end",
+        display: "block",
+        gridColumn: "4 / 4",
+        gridRow: "1 / 5",
+        // minWidth: "480px",
+        maxWidth: "512px",
+      },
+    },
+  },
 });
 
 const OverlaySmall = styled("div", {
   position: "fixed",
-  right: 0,
-  bottom: "195px",
+  right: "$space$2",
+  bottom: "$space$2",
   color: "white",
-  width: "480px",
+  variants: {
+    layout: {
+      sm: {
+        display: "none",
+      },
+      md: {
+        display: "block",
+        gridColumn: "3 / 4",
+        gridRow: "3 / 4",
+      },
+      lg: {
+        display: "block",
+        gridColumn: "4 / 4",
+        gridRow: "4 / 4",
+        maxWidth: "480px",
+      },
+    },
+  },
 });
 
 const RandomRotateGroup = ({ children }: { children: any }) => {
@@ -58,37 +172,141 @@ const visit = (url: string, delay: number = 0) => {
 
 const DesktopOnly = () => {
   return (
-    <PanelList>
-      <AnimatedPanel
-        title="View Source"
-        toggleable={false}
-        actions={[
-          // <ActionButton
-          //   onActivate={() => {}}
-          //   index={0}
-          //   key={0}
-          //   activationKey="O"
-          // >
-          //   capture screenshot
-          // </ActionButton>,
-          <ActionButton
-            onActivate={() => visit("https://github.com/bfollington/bf-3", 300)}
-            index={0}
-            key={0}
-            activationKey="Q"
-          >
-            view code
-          </ActionButton>,
-        ]}
-      >
-        <Text>
-          View the code for this site on github, it&apos;s built with next.js,
-          react-three-fiber and love.
-        </Text>
-      </AnimatedPanel>
-    </PanelList>
+    <Padding layout="md">
+      <PanelList>
+        <AnimatedPanel
+          title="Social"
+          expanded
+          actions={[
+            <ActionButton
+              onActivate={() => visit("https://twitter.com/vivavolt", 300)}
+              index={0}
+              key={0}
+              activationKey="T"
+            >
+              twitter
+            </ActionButton>,
+            <ActionButton
+              onActivate={() => visit("https://github.com/bfollington", 300)}
+              index={1}
+              key={1}
+              activationKey="G"
+            >
+              github
+            </ActionButton>,
+            <ActionButton
+              onActivate={() => visit("https://twitch.tv/vivavolt", 300)}
+              index={2}
+              key={2}
+              activationKey="W"
+            >
+              twitch
+            </ActionButton>,
+            <ActionButton
+              onActivate={() => visit("https://www.are.na/ben-follington", 300)}
+              index={3}
+              key={3}
+              activationKey="A"
+            >
+              are.na
+            </ActionButton>,
+            <ActionButton
+              onActivate={() => visit("https://twopm.itch.io/", 300)}
+              index={4}
+              key={4}
+              activationKey="I"
+            >
+              itch.io
+            </ActionButton>,
+            <ActionButton
+              onActivate={() =>
+                visit("https://codesandbox.io/u/bfollington", 300)
+              }
+              index={5}
+              key={5}
+              activationKey="B"
+            >
+              codesandbox
+            </ActionButton>,
+          ]}
+        ></AnimatedPanel>
+        <AnimatedPanel
+          title="Generative Art"
+          actions={[
+            <ActionButton
+              onActivate={() =>
+                visit(
+                  "https://www.are.na/ben-follington/generative-art-xi7hppoqskq",
+                  300
+                )
+              }
+              index={0}
+              key={0}
+              activationKey="Y"
+            >
+              gallery
+            </ActionButton>,
+            <ActionButton
+              onActivate={() =>
+                visit("https://hicetnunc.xyz/shimmeringvoid", 300)
+              }
+              index={1}
+              key={1}
+              activationKey="H"
+            >
+              hicetnunc2000
+            </ActionButton>,
+            <ActionButton
+              onActivate={() =>
+                visit("https://www.instagram.com/shimmeringvoid/", 300)
+              }
+              index={2}
+              key={2}
+              activationKey="I"
+            >
+              instagram
+            </ActionButton>,
+          ]}
+        ></AnimatedPanel>
+        <AnimatedPanel
+          title="View Source"
+          toggleable={false}
+          actions={[
+            // <ActionButton
+            //   onActivate={() => {}}
+            //   index={0}
+            //   key={0}
+            //   activationKey="O"
+            // >
+            //   capture screenshot
+            // </ActionButton>,
+            <ActionButton
+              onActivate={() =>
+                visit("https://github.com/bfollington/bf-3", 300)
+              }
+              index={0}
+              key={0}
+              activationKey="Q"
+            >
+              view code
+            </ActionButton>,
+          ]}
+        >
+          <Text>
+            View the code for this site on github, it&apos;s built with next.js,
+            react-three-fiber and love.
+          </Text>
+        </AnimatedPanel>
+      </PanelList>
+    </Padding>
   );
 };
+
+const Greetings = styled("div", {
+  gridColumn: "2 / 3",
+  gridRow: "2 / 3",
+  pointerEvents: "all",
+});
 
 const Home: NextPage = () => {
   const showBg = true;
@@ -97,6 +315,11 @@ const Home: NextPage = () => {
   useEffect(() => {
     setMounted(true);
   }, [setMounted]);
+
+  const [view, setView] = useState<"initial" | "active">("initial");
+  const { scale } = useSpring({
+    scale: view === "active" ? 1 : 0.1,
+  });
 
   return (
     <div className={styles.container}>
@@ -111,10 +334,7 @@ const Home: NextPage = () => {
 
       <Main>
         {showBg && (
-          <Canvas
-            style={{ position: "fixed" }}
-            camera={{ position: [15, 15, 15] }}
-          >
+          <Canvas camera={{ position: [15, 15, 15] }}>
             <color attach="background" args={["black"]} />
             {/* <Sky azimuth={1} inclination={0.1} distance={1000} /> */}
             <ambientLight intensity={0.1} />
@@ -123,13 +343,13 @@ const Home: NextPage = () => {
               <pointLight position={[30, 0, 0]} color="blue" intensity={10} />
               <pointLight position={[0, -30, 0]} color="pink" intensity={5} />
               <pointLight position={[0, 0, 30]} color="purple" intensity={5} />
-              <RandomRotateGroup>
+              <animated.group scale={scale}>
                 <Ribbon id={1} color="#7b505c" />
                 <Ribbon id={64} color="#E8AE3B" />
                 <Ribbon id={256} color="#E8AE3B" />
                 <Ribbon id={512} color="#E8AE3B" />
                 <Ribbon id={128} color="#e4d6cf" />
-              </RandomRotateGroup>
+              </animated.group>
               <Effects />
             </Suspense>
             <OrbitControls
@@ -140,251 +360,206 @@ const Home: NextPage = () => {
         )}
       </Main>
 
-      <Overlay>
-        <Interface>
-          <PanelList>
-            <AnimatedPanel title="Welcome">
-              <Text>Hi, I’m Ben</Text>
-              <br />
-
-              <Text>
-                I&apos;m a UI Engineer, game developer, designer and generative
-                artist living in Brisbane, Australia.
-              </Text>
-              <br />
-
-              <Text>
-                I make powerful, intuitive and joyful software using the tools I
-                love.
-              </Text>
-            </AnimatedPanel>
+      <VersionTag>
+        <Text>
+          bf.wtf
+          {version}
+        </Text>
+      </VersionTag>
+      <HudGrid>
+        {view === "initial" && (
+          <Greetings>
             <AnimatedPanel
-              title="Social"
-              expanded
+              title="BF.WTF"
               actions={[
                 <ActionButton
-                  onActivate={() => visit("https://twitter.com/vivavolt", 300)}
+                  onActivate={() => {
+                    setTimeout(entry, 100);
+                    setTimeout(() => {
+                      setView("active");
+                    }, 300);
+                  }}
                   index={0}
                   key={0}
-                  activationKey="T"
-                >
-                  twitter
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://github.com/bfollington", 300)
-                  }
-                  index={1}
-                  key={1}
-                  activationKey="G"
-                >
-                  github
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() => visit("https://twitch.tv/vivavolt", 300)}
-                  index={2}
-                  key={2}
-                  activationKey="W"
-                >
-                  twitch
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://www.are.na/ben-follington", 300)
-                  }
-                  index={3}
-                  key={3}
                   activationKey="A"
                 >
-                  are.na
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() => visit("https://twopm.itch.io/", 300)}
-                  index={4}
-                  key={4}
-                  activationKey="I"
-                >
-                  itch.io
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://codesandbox.io/u/bfollington", 300)
-                  }
-                  index={5}
-                  key={5}
-                  activationKey="B"
-                >
-                  codesandbox
-                </ActionButton>,
-              ]}
-            ></AnimatedPanel>
-            <AnimatedPanel
-              title="Work"
-              actions={[
-                <ActionButton
-                  onActivate={() => visit("https://cv.bf.wtf", 300)}
-                  index={0}
-                  key={0}
-                  activationKey="C"
-                >
-                  cv
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() => visit("https://github.com", 300)}
-                  index={1}
-                  key={1}
-                  activationKey="G"
-                >
-                  github
+                  activate
                 </ActionButton>,
               ]}
             >
-              <Text>
-                I will be open for freelance and contract work early 2022.
-              </Text>
-              <br />
-              <Text>
-                {" "}
-                I have extensive exprience with UI/UX engineering, design
-                systems, gamedev, interactive visuals (webgl &amp; canvas) and
-                mentoring enthusiastic developers.
-              </Text>
+              <Text>Welcome.</Text>
             </AnimatedPanel>
-            <AnimatedPanel
-              title="Projects"
-              actions={[
-                <ActionButton
-                  onActivate={() =>
-                    visit(
-                      "https://store.steampowered.com/app/1274210/The_Song_of_the_Fae/",
-                      300
-                    )
-                  }
-                  index={0}
-                  key={0}
-                  activationKey="S"
+          </Greetings>
+        )}
+        {view === "active" && (
+          <Overlay
+            layout={{
+              "@initial": "sm",
+              "@bp1": "sm",
+              "@bp2": "md",
+              "@bp3": "lg",
+            }}
+          >
+            <Padding layout="md">
+              <PanelList>
+                <AnimatedPanel title="Welcome">
+                  <Text>Hi, I’m Ben</Text>
+                  <br />
+
+                  <Text>
+                    I&apos;m a UI Engineer, game developer, designer and
+                    generative artist living in Brisbane, Australia.
+                  </Text>
+                  <br />
+
+                  <Text>
+                    I make powerful, intuitive and joyful software using the
+                    tools I love.
+                  </Text>
+                </AnimatedPanel>
+
+                <AnimatedPanel
+                  title="Work"
+                  actions={[
+                    <ActionButton
+                      onActivate={() => visit("https://cv.bf.wtf", 300)}
+                      index={0}
+                      key={0}
+                      activationKey="C"
+                    >
+                      cv
+                    </ActionButton>,
+                    <ActionButton
+                      onActivate={() => visit("https://github.com", 300)}
+                      index={1}
+                      key={1}
+                      activationKey="G"
+                    >
+                      github
+                    </ActionButton>,
+                  ]}
                 >
-                  the song of the fae
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() => visit("https://fundamental.sh", 300)}
-                  index={1}
-                  key={1}
-                  activationKey="F"
+                  <Text>
+                    I will be open for freelance and contract work early 2022.
+                  </Text>
+                  <br />
+                  <Text>
+                    {" "}
+                    I have extensive exprience with UI/UX engineering, design
+                    systems, gamedev, interactive visuals (webgl &amp; canvas)
+                    and mentoring enthusiastic developers.
+                  </Text>
+                </AnimatedPanel>
+                <AnimatedPanel
+                  title="Projects"
+                  actions={[
+                    <ActionButton
+                      onActivate={() =>
+                        visit(
+                          "https://store.steampowered.com/app/1274210/The_Song_of_the_Fae/",
+                          300
+                        )
+                      }
+                      index={0}
+                      key={0}
+                      activationKey="S"
+                    >
+                      the song of the fae
+                    </ActionButton>,
+                    <ActionButton
+                      onActivate={() => visit("https://fundamental.sh", 300)}
+                      index={1}
+                      key={1}
+                      activationKey="F"
+                    >
+                      fundamental.sh
+                    </ActionButton>,
+                    <ActionButton
+                      onActivate={() =>
+                        visit("https://shimmeringvoid.substack.com/", 300)
+                      }
+                      index={2}
+                      key={2}
+                      activationKey="V"
+                    >
+                      shimmeringvoid
+                    </ActionButton>,
+                    <ActionButton
+                      onActivate={() => visit("https://twopm.studio", 300)}
+                      index={3}
+                      key={3}
+                      activationKey="P"
+                    >
+                      twopm studios
+                    </ActionButton>,
+                    <ActionButton
+                      onActivate={() =>
+                        visit(
+                          "https://www.are.na/ben-follington/soundtrack-to-my-life",
+                          300
+                        )
+                      }
+                      index={4}
+                      key={4}
+                      activationKey="L"
+                    >
+                      soundtrack to my life
+                    </ActionButton>,
+                  ]}
                 >
-                  fundamental.sh
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://shimmeringvoid.substack.com/", 300)
-                  }
-                  index={2}
-                  key={2}
-                  activationKey="V"
-                >
-                  shimmeringvoid
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() => visit("https://twopm.studio", 300)}
-                  index={3}
-                  key={3}
-                  activationKey="P"
-                >
-                  twopm studios
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit(
-                      "https://www.are.na/ben-follington/soundtrack-to-my-life",
-                      300
-                    )
-                  }
-                  index={4}
-                  key={4}
-                  activationKey="L"
-                >
-                  soundtrack to my life
-                </ActionButton>,
-              ]}
-            >
-              <Text>
-                In my own time I develop commercial and free games, release OSS,
-                blog about programming and get sentimental about art, life,
-                philosophy and meditation.
-              </Text>
-            </AnimatedPanel>
-            <AnimatedPanel
-              title="Generative Art"
-              actions={[
-                <ActionButton
-                  onActivate={() =>
-                    visit(
-                      "https://www.are.na/ben-follington/generative-art-xi7hppoqskq",
-                      300
-                    )
-                  }
-                  index={0}
-                  key={0}
-                  activationKey="Y"
-                >
-                  gallery
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://hicetnunc.xyz/shimmeringvoid", 300)
-                  }
-                  index={1}
-                  key={1}
-                  activationKey="H"
-                >
-                  hicetnunc2000
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() =>
-                    visit("https://www.instagram.com/shimmeringvoid/", 300)
-                  }
-                  index={2}
-                  key={2}
-                  activationKey="I"
-                >
-                  instagram
-                </ActionButton>,
-              ]}
-            ></AnimatedPanel>
-            <AnimatedPanel
-              title="Support Me"
-              actions={[
-                <ActionButton
-                  onActivate={() =>
-                    visit(
-                      "https://www.blockchain.com/eth/address/0x981e493b795A7a28c43Bf8d7a8E125C419435Fa7",
-                      300
-                    )
-                  }
-                  index={0}
-                  key={0}
-                  activationKey="E"
-                >
-                  donate ETH
-                </ActionButton>,
-                <ActionButton
-                  onActivate={() => visit("https://ko-fi.com/vivavolt", 300)}
-                  index={1}
-                  key={1}
-                  activationKey="4"
-                >
-                  donate $
-                </ActionButton>,
-              ]}
-            ></AnimatedPanel>
-          </PanelList>
-        </Interface>
-      </Overlay>
-      <OverlaySmall className="source-panel">
-        <Interface>
-          <DesktopOnly />
-        </Interface>
-      </OverlaySmall>
+                  <Text>
+                    In my own time I develop commercial and free games, release
+                    OSS, blog about programming and get sentimental about art,
+                    life, philosophy and meditation.
+                  </Text>
+                </AnimatedPanel>
+
+                <AnimatedPanel
+                  title="Support Me"
+                  actions={[
+                    <ActionButton
+                      onActivate={() =>
+                        visit(
+                          "https://www.blockchain.com/eth/address/0x981e493b795A7a28c43Bf8d7a8E125C419435Fa7",
+                          300
+                        )
+                      }
+                      index={0}
+                      key={0}
+                      activationKey="E"
+                    >
+                      donate ETH
+                    </ActionButton>,
+                    <ActionButton
+                      onActivate={() =>
+                        visit("https://ko-fi.com/vivavolt", 300)
+                      }
+                      index={1}
+                      key={1}
+                      activationKey="4"
+                    >
+                      donate $
+                    </ActionButton>,
+                  ]}
+                ></AnimatedPanel>
+              </PanelList>
+            </Padding>
+          </Overlay>
+        )}
+        {view === "active" && (
+          <OverlayRight
+            layout={{
+              "@initial": "sm",
+              "@bp1": "sm",
+              "@bp2": "md",
+              "@bp3": "lg",
+            }}
+            className="source-panel"
+          >
+            <DesktopOnly />
+          </OverlayRight>
+        )}
+      </HudGrid>
 
       {/* <footer className={styles.footer}>
         <a
