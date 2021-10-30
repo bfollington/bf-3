@@ -8,6 +8,7 @@ import {
   ActionButton,
   AnimatedPanel,
   Interface,
+  Panel,
   PanelList,
   Text,
 } from "../components/hud";
@@ -313,7 +314,7 @@ const DesktopOnly = () => {
   );
 };
 
-const MobileOnly = styled("div", {
+const Visibility = styled("div", {
   variants: {
     visiblity: {
       visible: {
@@ -330,12 +331,39 @@ const Greetings = styled("div", {
   gridColumn: "2 / 3",
   gridRow: "2 / 3",
   pointerEvents: "all",
+  variants: {
+    size: {
+      small: {
+        gridColumn: "1 / 5",
+        gridRow: "2 / 4",
+      },
+      regular: {
+        gridColumn: "2 / 3",
+        gridRow: "2 / 3",
+      },
+    },
+  },
 });
 
 const Maximised = styled("div", {
-  gridColumn: "1 / 3",
+  gridColumn: "1 / 4",
   gridRow: "1 / 1",
   pointerEvents: "all",
+  variants: {
+    layout: {
+      small: {
+        gridColumn: "1 / 5",
+        gridRow: "1 / 1",
+
+        maxWidth: "512px",
+      },
+      large: {
+        gridColumn: "1 / 3",
+        gridRow: "1 / 1",
+        maxWidth: "512px",
+      },
+    },
+  },
 });
 
 const Home: NextPage = () => {
@@ -395,16 +423,45 @@ const Home: NextPage = () => {
       <VersionTag>
         <Text>
           bf.wtf
-          {pkg.version}
+          {" " + pkg.version}
         </Text>
       </VersionTag>
       <HudGrid>
         {view === "maximised" && (
-          <Maximised>
+          <Maximised layout={{ "@initial": "small", "@bp2": "large" }}>
             <Padding layout="md">
-              <AnimatedPanel
-                title="Go Back"
-                actions={[
+              <PanelList>
+                <AnimatedPanel
+                  title="Go Back"
+                  actions={[
+                    <ActionButton
+                      onActivate={() => {
+                        setTimeout(entry, 100);
+                        setTimeout(() => {
+                          setView("active");
+                        }, 300);
+                      }}
+                      index={0}
+                      key={0}
+                      activationKey="B"
+                    >
+                      back to site
+                    </ActionButton>,
+                  ]}
+                >
+                  <Text>Use the mouse or touch to pan, zoom and rotate.</Text>
+                </AnimatedPanel>
+              </PanelList>
+            </Padding>
+          </Maximised>
+        )}
+        {view === "initial" && (
+          <Greetings size={{ "@initial": "small", "@bp1": "regular" }}>
+            <Padding layout="md">
+              <PanelList>
+                <Panel title="BF.WTF">
+                  <Text>Welcome.</Text>
+                  <br />
                   <ActionButton
                     onActivate={() => {
                       setTimeout(entry, 100);
@@ -414,46 +471,22 @@ const Home: NextPage = () => {
                     }}
                     index={0}
                     key={0}
-                    activationKey="B"
+                    activationKey="A"
                   >
-                    back to site
-                  </ActionButton>,
-                ]}
-              >
-                <Text>Use the mouse or touch to pan, zoom and rotate.</Text>
-              </AnimatedPanel>
+                    activate
+                  </ActionButton>
+                </Panel>
+              </PanelList>
             </Padding>
-          </Maximised>
-        )}
-        {view === "initial" && (
-          <Greetings>
-            <AnimatedPanel
-              title="BF.WTF"
-              actions={[
-                <ActionButton
-                  onActivate={() => {
-                    setTimeout(entry, 100);
-                    setTimeout(() => {
-                      setView("active");
-                    }, 300);
-                  }}
-                  index={0}
-                  key={0}
-                  activationKey="A"
-                >
-                  activate
-                </ActionButton>,
-              ]}
-            >
-              <Text>Welcome.</Text>
-            </AnimatedPanel>
           </Greetings>
         )}
         {view === "active" && (
           <>
-            <Prompt>
-              <Text>click + drag + scroll</Text>
-            </Prompt>
+            <Visibility visiblity={{ "@initial": "hidden", "@bp4": "visible" }}>
+              <Prompt>
+                <Text>click + drag + scroll</Text>
+              </Prompt>
+            </Visibility>
             <Overlay
               layout={{
                 "@initial": "sm",
@@ -604,30 +637,22 @@ const Home: NextPage = () => {
                       </ActionButton>,
                     ]}
                   ></AnimatedPanel>
-                  <MobileOnly
-                    visiblity={{
-                      "@bp1": "visible",
-                      "@bp2": "visible",
-                      "@bp3": "hidden",
-                      "@initial": "hidden",
-                    }}
-                  >
-                    <AnimatedPanel
-                      title="Explore Mode"
-                      actions={[
-                        <ActionButton
-                          onActivate={() =>
-                            setTimeout(() => setView("maximised"), 300)
-                          }
-                          index={0}
-                          key={0}
-                          activationKey="X"
-                        >
-                          maximise art (interactive)
-                        </ActionButton>,
-                      ]}
-                    ></AnimatedPanel>
-                  </MobileOnly>
+
+                  <AnimatedPanel
+                    title="Explore Mode"
+                    actions={[
+                      <ActionButton
+                        onActivate={() =>
+                          setTimeout(() => setView("maximised"), 300)
+                        }
+                        index={0}
+                        key={0}
+                        activationKey="X"
+                      >
+                        maximise art
+                      </ActionButton>,
+                    ]}
+                  ></AnimatedPanel>
                 </PanelList>
               </Padding>
             </Overlay>
