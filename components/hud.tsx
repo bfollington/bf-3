@@ -5,14 +5,15 @@ import React, {
   ReactNodeArray,
   RefObject,
   useEffect,
-  useLayoutEffect,
   useRef,
   useState,
 } from "react";
 import { styled } from "../stitches";
-import { blip, closePanel, mount, openPanel, select } from "./sounds";
+import { blip, closePanel, openPanel, select } from "./sounds";
 import { Stack } from "./Stack";
 
+// Next.js doesn't like clientside code being invoked on the server
+// might try and patch use-control to prevent this.
 let useKeyDown = (...meh: any[]) => {};
 
 if (process.browser) {
@@ -35,6 +36,8 @@ export const Panel = styled("fieldset", {
   lineHeight: "$font$lineHeight",
   color: ACCENT(),
   textAlign: "left",
+
+  // ty josh https://www.joshwcomeau.com/css/designing-shadows/
   boxShadow: `
   0 1px 1px hsl(0deg 0% 0% / 0.175),
   0 2px 2px hsl(0deg 0% 0% / 0.175),
@@ -237,7 +240,7 @@ export const ActionButtonList = ({
       initial="closed"
       animate={open ? "open" : "closed"}
       variants={actionButtonListVariants}
-      custom={open}
+      custom={open} // AFAIC this is needed to re-trigger the animation over and over
     >
       {children}
     </motion.div>
@@ -272,6 +275,7 @@ export const ActionButton = ({
     setTimeout(() => setActive(false), 500);
   };
 
+  // Did I need to use my own library for this one key binding? No, not at all.
   useKeyDown(activationKey.charCodeAt(0), () => {
     onClick();
   });
@@ -289,15 +293,6 @@ export const ActionButton = ({
     </motion.div>
   );
 };
-
-export const Interface = styled("div", {
-  position: "absolute",
-  left: 0,
-  top: 0,
-  right: 0,
-  bottom: 0,
-  padding: "$2",
-});
 
 export const Text = styled("p", {
   margin: 0,

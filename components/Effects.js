@@ -13,8 +13,12 @@ import { DitherShader } from "../shaders/DitherShader";
 import { SpaceShader } from "../shaders/SpaceShader";
 import { RGBShiftShader } from "../shaders/RGBShiftShader";
 
-// import palette from "../resources/palette_twilight.png";
-// import dither from "../resources/bayer16tile2.png";
+/**
+ * Apologies for this one, I drag this effects chain from project to project.
+ * It contains a bunch of effects I've collected and massaged into a compatible form.
+ *
+ * Start here: https://threejs.org/docs/#examples/en/postprocessing/EffectComposer
+ */
 
 extend({
   EffectComposer,

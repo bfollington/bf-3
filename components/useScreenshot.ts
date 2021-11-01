@@ -1,6 +1,7 @@
 import { useThree } from "@react-three/fiber";
 import { useCallback } from "react";
 
+// This works but doesn't include anything from the effects composer
 export const useScreenshot = () => {
   const { gl, scene, camera } = useThree();
 

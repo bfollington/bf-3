@@ -21,6 +21,7 @@ a {
   display: none;
 }
 
+/* hide until initial page load complete */
 .hud {
   display: none;
 }
