@@ -545,7 +545,7 @@ const Home: NextPage = () => {
                     <br />
                     <Text>
                       {" "}
-                      I have extensive exprience with UI/UX engineering, design
+                      I have extensive experience with UI/UX engineering, design
                       systems, gamedev, software architecture, API design,
                       interactive visuals (webgl &amp; canvas) and mentoring
                       enthusiastic developers.
