@@ -483,7 +483,9 @@ const Home: NextPage = () => {
                         cv
                       </ActionButton>,
                       <ActionButton
-                        onActivate={() => visit("https://github.com", 300)}
+                        onActivate={() =>
+                          visit("https://github.com/bfollington", 300)
+                        }
                         index={1}
                         key={1}
                         activationKey="G"
