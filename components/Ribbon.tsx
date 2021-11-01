@@ -1,17 +1,7 @@
-import * as THREE from "three";
-import React, {
-  useRef,
-  useMemo,
-  useEffect,
-  useState,
-  useCallback,
-} from "react";
+import { useFrame } from "@react-three/fiber";
+import React, { useCallback, useEffect, useRef } from "react";
 import SimplexNoise from "simplex-noise";
-import { useFrame, useLoader } from "@react-three/fiber";
-// import bg from "./resources/seamless8.png";
-// import "./materials/ShinyMaterial";
-import { Html } from "@react-three/drei";
-import { Vector3 } from "three";
+import * as THREE from "three";
 
 /**
  * Everything in this file is based on https://www.airtightinteractive.com/splash/projects/ribbons/,
@@ -30,19 +20,14 @@ import { Vector3 } from "three";
  * @author felixturner / http://airtight.cc/
  */
 
-var RIBBON_LEN = 100; //number of spine point
+const RIBBON_LEN = 100; //number of spine point
 
 function createRibbonGeom() {
-  //make geometry, faces & colors for a ribbon
-  var i;
-
   const positions = [];
-  const normals = [];
-  const uvs = [];
   const vertexColors = [];
 
   //create verts + colors
-  for (i = 0; i < RIBBON_LEN; i++) {
+  for (let i = 0; i < RIBBON_LEN; i++) {
     positions.push(new THREE.Vector3(i, i, 0));
     positions.push(new THREE.Vector3(i, i + 10, 0));
     vertexColors.push(new THREE.Color());
@@ -52,10 +37,7 @@ function createRibbonGeom() {
   const indices = [];
 
   //create faces
-  for (i = 0; i < RIBBON_LEN - 1; i++) {
-    // geom.faces.push(new THREE.Face3(i * 2, i * 2 + 1, i * 2 + 2))
-    // geom.faces.push(new THREE.Face3(i * 2 + 1, i * 2 + 3, i * 2 + 2))
-
+  for (let i = 0; i < RIBBON_LEN - 1; i++) {
     indices.push(i * 2);
     indices.push(i * 2 + 1);
     indices.push(i * 2 + 2);
@@ -68,25 +50,13 @@ function createRibbonGeom() {
   return { positions, indices };
 }
 
-function lerp(v0, v1, t) {
-  return v0 * (1 - t) + v1 * t;
-}
-
 const noise = new SimplexNoise();
 
-function getNoiseAngle(time, noiseId, zOffset) {
-  // return noise.noise3d( noiseTime, noiseId, zOffset ) * Math.PI*2;
-  // console.log(time, noiseId, zOffset)
+function getNoiseAngle(time: number, noiseId: number, zOffset: number) {
   return noise.noise3D(time, noiseId, zOffset) * Math.PI * 2;
-  // return Math.PI * 2 * (Math.sin(time) + 1)
 }
 
 export default function Ribbon({ id = 1, color = "red" }) {
-  const material = useRef();
-  const mesh = useRef();
-  // //   const [texture] = useLoader(THREE.TextureLoader, [bg]);
-  //   texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-
   const up = new THREE.Vector3(1, 0, 0);
   const direction = useRef(new THREE.Vector3(0, 0, 0));
   const normal = useRef(new THREE.Vector3(0, 0, 0));
@@ -109,9 +79,8 @@ export default function Ribbon({ id = 1, color = "red" }) {
   const head = useRef(new THREE.Vector3(0, 0, 0));
   const prev = useRef(new THREE.Vector3(0, 0, 0));
 
-  const geometry = useRef();
-
-  const [debug, setDebug] = useState("");
+  const geometry = useRef<THREE.BufferGeometry>();
+  const mesh = useRef<THREE.Mesh>();
 
   const onInit = useCallback(() => {
     noiseId.current = id / 300;
@@ -144,57 +113,36 @@ export default function Ribbon({ id = 1, color = "red" }) {
   }, [id]);
 
   const onReset = () => {
-    var i;
-
     //reset prev position
     prev.current.copy(head.current);
 
-    //reset mesh geom
-    for (i = 0; i < RIBBON_LEN; i++) {
-      geometry.current.attributes.position.array[i * 6] = head.current.x;
-      geometry.current.attributes.position.array[i * 6 + 1] = head.current.y;
-      geometry.current.attributes.position.array[i * 6 + 2] = head.current.z;
-      geometry.current.attributes.position.array[i * 6 + 3] = head.current.x;
-      geometry.current.attributes.position.array[i * 6 + 4] = head.current.y;
-      geometry.current.attributes.position.array[i * 6 + 5] = head.current.z;
+    for (let i = 0; i < RIBBON_LEN; i++) {
+      // This typecast is offputting...
+      const positions = geometry.current?.attributes.position.array as
+        | undefined
+        | Array<number>;
+      if (positions) {
+        positions[i * 6] = head.current.x;
+        positions[i * 6 + 1] = head.current.y;
+        positions[i * 6 + 2] = head.current.z;
+        positions[i * 6 + 3] = head.current.x;
+        positions[i * 6 + 4] = head.current.y;
+        positions[i * 6 + 5] = head.current.z;
+      }
     }
 
-    //init colors for this ribbon
-    //hue is set by noiseId
-    let hue1 = (noiseId + Math.random() * 0.01) % 2;
-    let hue2 = (noiseId + Math.random() * 0.01) % 2;
-
-    if (Math.random() < 0.1) {
-      hue1 = Math.random();
+    if (geometry.current) {
+      geometry.current.attributes.position.needsUpdate = true;
     }
-    if (Math.random() < 0.1) {
-      hue2 = Math.random();
-    }
-
-    var sat = Math.random() * 0.4 + 0.6;
-    var lightness = Math.random() * 0.4 + 0.2;
-
-    var col = new THREE.Color();
-
-    // TODO: fix this so the ribbons change colour along their length
-    for (i = 0; i < RIBBON_LEN - 1; i++) {
-      //add lightness gradient based on spine position
-      col.setHSL(lerp(hue1, hue2, i / RIBBON_LEN), sat, lightness);
-
-      // this.meshGeom.faces[i*2].color.copy(col);
-      // this.meshGeom.faces[i*2+1].color.copy(col);
-    }
-
-    geometry.current.verticesNeedUpdate = true;
-    geometry.current.colorsNeedUpdate = true;
   };
 
   useFrame(({ clock }, delta) => {
-    // material.current.time += delta + Math.sin(clock.elapsedTime / 10) / 1000
-    mesh.current.rotation.x = Math.sin(clock.elapsedTime) * (Math.PI / 20);
-    mesh.current.rotation.y = Math.cos(clock.elapsedTime) * (Math.PI / 20);
-    mesh.current.scale.y = 0.9 + 0.1 * Math.sin(clock.elapsedTime);
-    mesh.current.scale.x = 0.9 + 0.1 * Math.cos(clock.elapsedTime);
+    if (mesh.current) {
+      mesh.current.rotation.x = Math.sin(clock.elapsedTime) * (Math.PI / 20);
+      mesh.current.rotation.y = Math.cos(clock.elapsedTime) * (Math.PI / 20);
+      mesh.current.scale.y = 0.9 + 0.1 * Math.sin(clock.elapsedTime);
+      mesh.current.scale.x = 0.9 + 0.1 * Math.cos(clock.elapsedTime);
+    }
 
     prev.current.copy(head.current);
 
@@ -224,33 +172,35 @@ export default function Ribbon({ id = 1, color = "red" }) {
 
     //shift each 2 verts down one posn
     //e.g. copy verts (0,1) -> (2,3)
-    const verts = geometry.current.attributes.position.array;
-    for (var i = RIBBON_LEN - 1; i > 0; i--) {
-      verts[i * 6] = verts[(i - 1) * 6];
-      verts[i * 6 + 1] = verts[(i - 1) * 6 + 1];
-      verts[i * 6 + 2] = verts[(i - 1) * 6 + 2];
-      verts[i * 6 + 3] = verts[(i - 1) * 6 + 3];
-      verts[i * 6 + 4] = verts[(i - 1) * 6 + 4];
-      verts[i * 6 + 5] = verts[(i - 1) * 6 + 5];
-    }
+    const verts = geometry.current?.attributes.position.array as
+      | undefined
+      | Array<number>;
 
-    //populate 1st 2 verts with left and right normalHelper
-    const v0 = new THREE.Vector3().copy(head.current).add(normal.current);
-    verts[0] = v0.x;
-    verts[1] = v0.y;
-    verts[2] = v0.z;
-    const v1 = new THREE.Vector3().copy(head.current).sub(normal.current);
-    verts[3] = v1.x;
-    verts[4] = v1.y;
-    verts[5] = v1.z;
+    if (verts) {
+      for (let i = RIBBON_LEN - 1; i > 0; i--) {
+        verts[i * 6] = verts[(i - 1) * 6];
+        verts[i * 6 + 1] = verts[(i - 1) * 6 + 1];
+        verts[i * 6 + 2] = verts[(i - 1) * 6 + 2];
+        verts[i * 6 + 3] = verts[(i - 1) * 6 + 3];
+        verts[i * 6 + 4] = verts[(i - 1) * 6 + 4];
+        verts[i * 6 + 5] = verts[(i - 1) * 6 + 5];
+      }
+
+      //populate 1st 2 verts with left and right normalHelper
+      const v0 = new THREE.Vector3().copy(head.current).add(normal.current);
+      verts[0] = v0.x;
+      verts[1] = v0.y;
+      verts[2] = v0.z;
+      const v1 = new THREE.Vector3().copy(head.current).sub(normal.current);
+      verts[3] = v1.x;
+      verts[4] = v1.y;
+      verts[5] = v1.z;
+    }
 
     if (geometry.current) {
       geometry.current.attributes.position.needsUpdate = true;
-      //   geometry.current.computeFaceNormals();
       geometry.current.computeVertexNormals();
     }
-
-    // setDebug(`${head.current.x}, ${head.current.y}, ${head.current.z}`)
   });
 
   useEffect(() => {
@@ -260,26 +210,13 @@ export default function Ribbon({ id = 1, color = "red" }) {
   return (
     <>
       <mesh position={[0, 0, 0]} ref={mesh}>
-        {/* <shinyMaterial ref={material} attach="material" noiseTexture={texture} /> */}
         <meshStandardMaterial
           attach="material"
           color={color}
           side={THREE.DoubleSide}
         />
         <bufferGeometry attach="geometry" ref={geometry} />
-        {/* <meshPhongMaterial
-          attach="material"
-          side={THREE.DoubleSide}
-          vertexColors={THREE.FaceColors}
-          color={"#FFFFFF"}
-          shininess={30}
-          specular={0x50473b}
-          frustumCulled={false}
-        /> */}
       </mesh>
-      {/* <Html>
-        <p>{debug}</p>
-      </Html> */}
     </>
   );
 }
