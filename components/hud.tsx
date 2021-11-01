@@ -32,8 +32,8 @@ export const Panel = styled("fieldset", {
   padding: "8px",
   margin: 0,
   fontFamily: "'Space Mono', monospace",
-  fontSize: "16px",
-  lineHeight: "21px",
+  fontSize: "17px",
+  lineHeight: "22px",
   color: ACCENT(),
   textAlign: "left",
   boxShadow: `
@@ -156,10 +156,10 @@ export const Button = styled("button", {
   backgroundColor: "transparent",
   padding: "4px 4px",
   fontFamily: "'Space Mono', monospace",
-  fontSize: "16px",
+  fontSize: "17px",
   fontWeight: "bold",
   color: ACCENT(),
-  lineHeight: "14px",
+  lineHeight: "15px",
   outline: "none",
   transition: "transform 0.2s ease-out",
   "&:hover": {
@@ -314,5 +314,5 @@ export const Interface = styled("div", {
 export const Text = styled("p", {
   margin: 0,
   fontFamily: "'Space Mono', monospace",
-  fontSize: "16px",
+  fontSize: "17px",
 });
