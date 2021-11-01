@@ -13,6 +13,23 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import { Vector3 } from "three";
 
+/**
+ * Everything in this file is based on https://www.airtightinteractive.com/splash/projects/ribbons/,
+ * I chopped and changed a lot porting it to r3f.
+ * 
+ * If there's an issue using this code as a base for my own work please let me know ASAP. 
+ * 
+ * @author bfollington / https://bf.wtf
+ *
+ * Original credits: 
+ * RIBBON
+
+ * Move Ribbons using joints
+ * phong material
+
+ * @author felixturner / http://airtight.cc/
+ */
+
 var RIBBON_LEN = 100; //number of spine point
 
 function createRibbonGeom() {
