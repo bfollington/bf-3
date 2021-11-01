@@ -543,8 +543,9 @@ const Home: NextPage = () => {
                     <Text>
                       {" "}
                       I have extensive exprience with UI/UX engineering, design
-                      systems, gamedev, interactive visuals (webgl &amp; canvas)
-                      and mentoring enthusiastic developers.
+                      systems, gamedev, software architecture, API design,
+                      interactive visuals (webgl &amp; canvas) and mentoring
+                      enthusiastic developers.
                     </Text>
                   </AnimatedPanel>
                   <AnimatedPanel
@@ -613,6 +614,7 @@ const Home: NextPage = () => {
 
                   <AnimatedPanel
                     title="Support Me"
+                    toggleable={false}
                     actions={[
                       <ActionButton
                         onActivate={() =>
@@ -642,6 +644,7 @@ const Home: NextPage = () => {
 
                   <AnimatedPanel
                     title="Explore Mode"
+                    toggleable={false}
                     actions={[
                       <ActionButton
                         onActivate={() =>

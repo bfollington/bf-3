@@ -32,7 +32,8 @@ export const Panel = styled("fieldset", {
   padding: "8px",
   margin: 0,
   fontFamily: "'Space Mono', monospace",
-  fontSize: "18px",
+  fontSize: "16px",
+  lineHeight: "21px",
   color: ACCENT(),
   textAlign: "left",
   boxShadow: `
@@ -115,7 +116,7 @@ export const AnimatedPanel = ({
                 }}
               >
                 [{open ? "-" : "+"}]
-              </PanelLegendExpandButton>{" "}
+              </PanelLegendExpandButton>
             </>
           )}
           {title}
@@ -132,8 +133,12 @@ export const AnimatedPanel = ({
 
 export const PanelLegend = styled("legend", {
   fontWeight: "bold",
-  padding: "0px 5px",
+  padding: "0px $1",
   textTransform: "uppercase",
+  textShadow: `-1px -1px 0 #000,  
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000`,
 });
 
 const flicker = keyframes({
@@ -151,10 +156,10 @@ export const Button = styled("button", {
   backgroundColor: "transparent",
   padding: "4px 4px",
   fontFamily: "'Space Mono', monospace",
-  fontSize: "18px",
+  fontSize: "16px",
   fontWeight: "bold",
   color: ACCENT(),
-  lineHeight: "16px",
+  lineHeight: "14px",
   outline: "none",
   transition: "transform 0.2s ease-out",
   "&:hover": {
@@ -187,9 +192,13 @@ export const Button = styled("button", {
 
 export const PanelLegendExpandButton = styled(Button, {
   background: "none",
-  paddingLeft: 0,
-  paddingRight: 0,
+  padding: "$1 0",
+  marginRight: "$1",
   border: "none",
+  textShadow: `-1px -1px 0 #000,  
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000`,
   "&:hover": {
     "&::before": {
       content: "",
@@ -198,6 +207,7 @@ export const PanelLegendExpandButton = styled(Button, {
     color: "black",
     transform: "translateX(0px)",
     cursor: "pointer",
+    textShadow: "none",
   },
 });
 
@@ -304,5 +314,5 @@ export const Interface = styled("div", {
 export const Text = styled("p", {
   margin: 0,
   fontFamily: "'Space Mono', monospace",
-  fontSize: "18px",
+  fontSize: "16px",
 });
