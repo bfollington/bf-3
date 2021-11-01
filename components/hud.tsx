@@ -24,16 +24,15 @@ const HACKER_ORANGE = (a = 1) => `rgba(232, 174, 59,${a})`;
 const ACCENT = HACKER_ORANGE;
 
 export const Panel = styled("fieldset", {
-  // width: "28%",
-  borderWidth: "2px",
+  borderWidth: "$panel$border",
   borderColor: ACCENT(0.5),
   borderStyle: "solid",
-  backgroundColor: "rgba(0, 0, 0, 0.85)",
-  padding: "8px",
+  backgroundColor: "$panel$backgroundColor",
+  padding: "$space$2",
   margin: 0,
-  fontFamily: "'Space Mono', monospace",
-  fontSize: "17px",
-  lineHeight: "22px",
+  fontFamily: "$font$fontFamily",
+  fontSize: "$font$size",
+  lineHeight: "$font$lineHeight",
   color: ACCENT(),
   textAlign: "left",
   boxShadow: `
@@ -60,6 +59,7 @@ const panelListVariants = {
 export const PanelList = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     React.Children.forEach(children, (c, i) => {
+      // opening sounds
       setTimeout(openPanel, i * 100 + 500);
     });
   }, [children]);
@@ -75,16 +75,10 @@ const animatedPanelVariants = {
   open: {
     y: 0,
     opacity: 1,
-    // transition: {
-    //   y: { stiffness: 1000, velocity: -100 },
-    // },
   },
   closed: {
     y: 48,
     opacity: 0,
-    // transition: {
-    //   y: { stiffness: 1000 },
-    // },
   },
 };
 
@@ -154,9 +148,9 @@ export const Button = styled("button", {
   borderColor: ACCENT(0.75),
   borderStyle: "solid",
   backgroundColor: "transparent",
-  padding: "4px 4px",
-  fontFamily: "'Space Mono', monospace",
-  fontSize: "17px",
+  padding: "$1 $1",
+  fontFamily: "$font$fontFamily",
+  fontSize: "$font$size",
   fontWeight: "bold",
   color: ACCENT(),
   lineHeight: "15px",
@@ -254,16 +248,10 @@ const actionButtonVariants = {
   open: {
     y: 0,
     opacity: 1,
-    // transition: {
-    //   y: { stiffness: 1000, velocity: -100 },
-    // },
   },
   closed: {
     y: 25,
     opacity: 0,
-    // transition: {
-    //   y: { stiffness: 1000 },
-    // },
   },
 };
 
@@ -308,11 +296,11 @@ export const Interface = styled("div", {
   top: 0,
   right: 0,
   bottom: 0,
-  padding: "8px",
+  padding: "$2",
 });
 
 export const Text = styled("p", {
   margin: 0,
-  fontFamily: "'Space Mono', monospace",
-  fontSize: "17px",
+  fontFamily: "$font$fontFamily",
+  fontSize: "$font$size",
 });

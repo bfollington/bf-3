@@ -1,5 +1,6 @@
-import { Html, OrbitControls } from "@react-three/drei";
-import { Canvas, useStore, useThree } from "@react-three/fiber";
+import { animated, useSpring } from "@react-spring/three";
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
 import type { NextPage } from "next";
 import Head from "next/head";
 import React, { Suspense, useEffect, useState } from "react";
@@ -7,21 +8,15 @@ import Effects from "../components/Effects";
 import {
   ActionButton,
   AnimatedPanel,
-  Interface,
   Panel,
   PanelList,
   Text,
 } from "../components/hud";
 import Ribbon from "../components/Ribbon";
-import RibbonHack from "../components/RibbonHack";
-import { RibbonRedux } from "../components/RibbonRedux";
-import styles from "../styles/Home.module.css";
-import * as THREE from "three";
-import { useScreenshot } from "../components/useScreenshot";
-import { styled } from "../stitches";
-import { animated, useSpring } from "@react-spring/three";
+import { entry } from "../components/sounds";
 import pkg from "../package.json";
-import { entry, magic } from "../components/sounds";
+import { styled } from "../stitches";
+import styles from "../styles/Home.module.css";
 
 const Main = styled("main", {
   width: "100vw",
@@ -40,7 +35,7 @@ const VersionTag = styled("div", {
   pointerEvents: "none",
 });
 
-const Prompt = styled("div", {
+const PlayWithArtPrompt = styled("div", {
   position: "fixed",
   right: "$2",
   left: "$2",
@@ -54,8 +49,7 @@ const Prompt = styled("div", {
 const Overlay = styled("div", {
   gridColumn: "1 / 5",
   gridRow: "1 / 5",
-  paddingBottom: "128px",
-  // padding: "$space$2",
+  paddingBottom: "$space$6",
   color: "white",
   overflowY: "auto",
 
@@ -66,18 +60,20 @@ const Overlay = styled("div", {
       sm: {
         gridColumn: "1 / 5",
         gridRow: "1 / 5",
-        maxWidth: "512px",
-        paddingBottom: "128px",
+        maxWidth: "$sidebar$maxWidth",
+        paddingBottom: "$space$6",
       },
       md: {
         gridColumn: "1 / 3",
         gridRow: "1 / 5",
+        paddingBottom: "0",
       },
       lg: {
         gridColumn: "1 / 3",
         gridRow: "1 / 5",
-        minWidth: "480px",
-        maxWidth: "512px",
+        minWidth: "$sidebar$minWidth",
+        maxWidth: "$sidebar$maxWidth",
+        paddingBottom: "0",
       },
     },
   },
@@ -117,7 +113,6 @@ const HudGrid = styled("div", {
 
 const OverlayRight = styled("div", {
   display: "none",
-  // padding: "$space$2",
   color: "white",
   overflowY: "auto",
 
@@ -138,41 +133,12 @@ const OverlayRight = styled("div", {
         display: "block",
         gridColumn: "4 / 5",
         gridRow: "1 / 5",
-        // minWidth: "480px",
-        maxWidth: "512px",
+        // minWidth: "$sidebar$minWidth",
+        maxWidth: "$sidebar$maxWidth",
       },
     },
   },
 });
-
-const OverlaySmall = styled("div", {
-  position: "fixed",
-  right: "$space$2",
-  bottom: "$space$2",
-  color: "white",
-  variants: {
-    layout: {
-      sm: {
-        display: "none",
-      },
-      md: {
-        display: "block",
-        gridColumn: "3 / 4",
-        gridRow: "3 / 4",
-      },
-      lg: {
-        display: "block",
-        gridColumn: "4 / 4",
-        gridRow: "4 / 4",
-        maxWidth: "480px",
-      },
-    },
-  },
-});
-
-const RandomRotateGroup = ({ children }: { children: any }) => {
-  return <group>{children}</group>;
-};
 
 const visit = (url: string, delay: number = 0) => {
   if (delay > 0) {
@@ -286,14 +252,6 @@ const DesktopOnly = () => {
           title="View Source"
           toggleable={false}
           actions={[
-            // <ActionButton
-            //   onActivate={() => {}}
-            //   index={0}
-            //   key={0}
-            //   activationKey="O"
-            // >
-            //   capture screenshot
-            // </ActionButton>,
             <ActionButton
               onActivate={() =>
                 visit("https://github.com/bfollington/bf-3", 300)
@@ -307,8 +265,9 @@ const DesktopOnly = () => {
           ]}
         >
           <Text>
-            View the code for this site on github, it&apos;s built with next.js,
-            react-three-fiber and love.
+            View the code for this site on github, it&apos;s built with react,
+            next.js, stitchesjs, react-three-fiber, react-spring, framer-motion,
+            zzfx and love.
           </Text>
         </AnimatedPanel>
       </PanelList>
@@ -357,12 +316,12 @@ const Maximised = styled("div", {
         gridColumn: "1 / 5",
         gridRow: "1 / 1",
 
-        maxWidth: "512px",
+        maxWidth: "$sidebar$maxWidth",
       },
       large: {
         gridColumn: "1 / 3",
         gridRow: "1 / 1",
-        maxWidth: "512px",
+        maxWidth: "$sidebar$maxWidth",
       },
     },
   },
@@ -370,11 +329,6 @@ const Maximised = styled("div", {
 
 const Home: NextPage = () => {
   const showBg = true;
-
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => {
-    setMounted(true);
-  }, [setMounted]);
 
   const [view, setView] = useState<"initial" | "active" | "maximised">(
     "initial"
@@ -401,7 +355,6 @@ const Home: NextPage = () => {
         {showBg && (
           <Canvas camera={{ position: [15, 15, 15] }}>
             <color attach="background" args={["black"]} />
-            {/* <Sky azimuth={1} inclination={0.1} distance={1000} /> */}
             <ambientLight intensity={0.1} />
             <pointLight position={[10, 10, 10]} />
             <Suspense fallback={null}>
@@ -488,9 +441,9 @@ const Home: NextPage = () => {
         {view === "active" && (
           <>
             <Visibility visiblity={{ "@initial": "hidden", "@bp4": "visible" }}>
-              <Prompt>
+              <PlayWithArtPrompt>
                 <Text>click + drag + scroll</Text>
-              </Prompt>
+              </PlayWithArtPrompt>
             </Visibility>
             <Overlay
               layout={{
@@ -680,19 +633,6 @@ const Home: NextPage = () => {
           </OverlayRight>
         )}
       </HudGrid>
-
-      {/* <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer> */}
     </div>
   );
 };
