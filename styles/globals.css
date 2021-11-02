@@ -17,6 +17,29 @@ a {
   box-sizing: border-box;
 }
 
+/* scrollbars */
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0) rgba(232, 174, 59, 0.5);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 2px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(232, 174, 59, 0.5);
+  border-radius: 20px;
+  border: 3px solid rgba(0, 0, 0, 0);
+}
+
 .source-panel {
   display: none;
 }
