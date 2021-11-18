@@ -228,13 +228,13 @@ const DesktopOnly = () => {
             </ActionButton>,
             <ActionButton
               onActivate={() =>
-                visit("https://hicetnunc.xyz/shimmeringvoid", 300)
+                visit("https://www.fxhash.xyz/u/shimmeringvoid", 300)
               }
               index={1}
               key={1}
               activationKey="H"
             >
-              hicetnunc2000
+              fxhash
             </ActionButton>,
             <ActionButton
               onActivate={() =>
