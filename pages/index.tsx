@@ -495,7 +495,7 @@ const Home: NextPage = () => {
                     ]}
                   >
                     <Text>
-                      I will be open for freelance and contract work early 2022.
+                      I will be open for freelance and contract work in mid-2022.
                     </Text>
                     <br />
                     <Text>
