@@ -182,7 +182,7 @@ export const blip = (index = 0) =>
     ]
   ); // Blip 114
 
-export const select = () =>
+export const newName = () =>
   zzfx(
     ...[
       1.4,

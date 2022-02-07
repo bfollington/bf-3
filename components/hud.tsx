@@ -9,7 +9,7 @@ import React, {
   useState,
 } from "react";
 import { styled } from "../stitches";
-import { blip, closePanel, openPanel, select } from "./sounds";
+import { blip, closePanel, openPanel, newName } from "./sounds";
 import { Stack } from "./Stack";
 
 // Next.js doesn't like clientside code being invoked on the server
@@ -268,7 +268,7 @@ export const ActionButton = ({
   const [active, setActive] = useState(false);
   const onEnter = () => blip(index);
   const onClick = () => {
-    select();
+    newName();
     onActivate && onActivate();
     setActive(true);
     el.current?.focus();
