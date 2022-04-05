@@ -459,18 +459,14 @@ const Home: NextPage = () => {
                     <br />
 
                     <Text>
-                      I&apos;m a UI Engineer, game developer, designer and
+                      Hi, I&apos;m Ben Follington. I&apos; a UI Engineer, game developer, designer and
                       big nerd living in Brisbane, Australia.
                     </Text>
                     <br />
 
                     <Text>
-                      My work is both simple and powerful, I am endlessly
-                      fascinated by how to match human thought with the
-                      artificial formality of the computer.
-                    </Text>
-                    
-                    <Text>
+                      My work balances both simplicty and power, I am endlessly
+                      fascinated by human computer interaction and what it can achieve.
                       I strive for straightforward code, delightful UX,
                       clear thinking and microscopic attention to detail.
                     </Text>
