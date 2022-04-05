@@ -341,12 +341,11 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>
-          Ben Follington - UI Engineer, game developer, designer and generative
-          artist
+          Ben Follington - artist, designer & programmer
         </title>
         <meta
           name="description"
-          content="current status: technomancer 👁 making computers fun again"
+          content="artist, designer & programmer making cool stuff with computers"
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -461,13 +460,19 @@ const Home: NextPage = () => {
 
                     <Text>
                       I&apos;m a UI Engineer, game developer, designer and
-                      generative artist living in Brisbane, Australia.
+                      big nerd living in Brisbane, Australia.
                     </Text>
                     <br />
 
                     <Text>
-                      I make powerful, intuitive and joyful software using the
-                      tools I love.
+                      My work is both simple and powerful, I am endlessly
+                      fascinated by how to match human thought with the
+                      artificial formality of the computer.
+                    </Text>
+                    
+                    <Text>
+                      I strive for straightforward code, delightful UX,
+                      clear thinking and microscopic attention to detail.
                     </Text>
                   </AnimatedPanel>
 
@@ -495,14 +500,13 @@ const Home: NextPage = () => {
                     ]}
                   >
                     <Text>
-                      I will be open for freelance and contract work in mid-2022.
+                      I will be open for freelance and contract work in Q3 2022.
                     </Text>
                     <br />
                     <Text>
-                      {" "}
                       I have extensive experience with UI/UX engineering, design
-                      systems, gamedev, software architecture, API design,
-                      interactive visuals (webgl &amp; canvas) and mentoring
+                      systems, gamedev, software architecture, API design, web app architecture,
+                      interactive visuals (Unity, Godot, webgl &amp; canvas) and mentoring
                       enthusiastic developers.
                     </Text>
                   </AnimatedPanel>
