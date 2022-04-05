@@ -455,9 +455,6 @@ const Home: NextPage = () => {
               <Padding layout="md">
                 <PanelList>
                   <AnimatedPanel title="Welcome">
-                    <Text>Hi, I’m Ben Follington and this is my homepage.</Text>
-                    <br />
-
                     <Text>
                       Hi, I&apos;m Ben Follington. I&apos; a UI Engineer, game developer, designer and
                       big nerd living in Brisbane, Australia.
