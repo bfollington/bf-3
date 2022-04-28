@@ -462,7 +462,7 @@ const Home: NextPage = () => {
                     <br />
 
                     <Text>
-                      My work balances both simplicty and power, I am endlessly
+                      My work balances both simplicity and power, I am endlessly
                       fascinated by human computer interaction and what it can achieve.
                       I strive for straightforward code, delightful UX,
                       clear thinking and microscopic attention to detail.
