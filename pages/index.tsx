@@ -228,13 +228,13 @@ const DesktopOnly = () => {
             </ActionButton>,
             <ActionButton
               onActivate={() =>
-                visit("https://hicetnunc.xyz/shimmeringvoid", 300)
+                visit("https://www.fxhash.xyz/u/shimmeringvoid", 300)
               }
               index={1}
               key={1}
               activationKey="H"
             >
-              hicetnunc2000
+              fxhash
             </ActionButton>,
             <ActionButton
               onActivate={() =>
@@ -341,12 +341,11 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>
-          Ben Follington - UI Engineer, game developer, designer and generative
-          artist
+          Ben Follington - multi-disciplinary designer, programmer and artist
         </title>
         <meta
           name="description"
-          content="current status: technomancer 👁 making computers fun again"
+          content="Ben Follington: multi-disciplinary designer, programmer and artist making cool stuff with computers."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -456,18 +455,16 @@ const Home: NextPage = () => {
               <Padding layout="md">
                 <PanelList>
                   <AnimatedPanel title="Welcome">
-                    <Text>Hi, I’m Ben Follington and this is my homepage.</Text>
-                    <br />
-
                     <Text>
-                      I&apos;m a UI Engineer, game developer, designer and
-                      generative artist living in Brisbane, Australia.
+                      Hi, I&apos;m Ben Follington. I&apos;m a multi-disciplinary designer, programmer and artist living in Brisbane, Australia. I make, think and write about cool user interfaces, video games and whatever else interests me.
                     </Text>
                     <br />
 
                     <Text>
-                      I make powerful, intuitive and joyful software using the
-                      tools I love.
+                      My work combines elegant user-focused design and technical sophistication, I am endlessly
+                      fascinated by human computer interaction and what it can achieve.
+                      I strive for straightforward code, delightful UX,
+                      clear thinking, rapid progress and microscopic attention to detail.
                     </Text>
                   </AnimatedPanel>
 
@@ -495,14 +492,13 @@ const Home: NextPage = () => {
                     ]}
                   >
                     <Text>
-                      I will be open for freelance and contract work early 2022.
+                      I will be open for freelance and contract work in Q3 2022.
                     </Text>
                     <br />
                     <Text>
-                      {" "}
                       I have extensive experience with UI/UX engineering, design
-                      systems, gamedev, software architecture, API design,
-                      interactive visuals (webgl &amp; canvas) and mentoring
+                      systems, gamedev, software architecture, API design, web app architecture,
+                      interactive visuals (Unity, Godot, webgl &amp; canvas) and mentoring
                       enthusiastic developers.
                     </Text>
                   </AnimatedPanel>
