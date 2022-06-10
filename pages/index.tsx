@@ -341,11 +341,11 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>
-          Ben Follington - artist, designer & programmer
+          Ben Follington - multi-disciplinary designer, programmer and artist
         </title>
         <meta
           name="description"
-          content="artist, designer & programmer making cool stuff with computers"
+          content="Ben Follington: multi-disciplinary designer, programmer and artist making cool stuff with computers."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -456,16 +456,15 @@ const Home: NextPage = () => {
                 <PanelList>
                   <AnimatedPanel title="Welcome">
                     <Text>
-                      Hi, I&apos;m Ben Follington. I&apos;m a UI Engineer, game developer, designer and
-                      big nerd living in Brisbane, Australia.
+                      Hi, I&apos;m Ben Follington. I&apos;m a multi-disciplinary designer, programmer and artist living in Brisbane, Australia. I make, think and write about cool user interfaces, video games and whatever else interests me.
                     </Text>
                     <br />
 
                     <Text>
-                      My work balances both simplicity and power, I am endlessly
+                      My work combines elegant user-focused design and technical sophistication, I am endlessly
                       fascinated by human computer interaction and what it can achieve.
                       I strive for straightforward code, delightful UX,
-                      clear thinking and microscopic attention to detail.
+                      clear thinking, rapid progress and microscopic attention to detail.
                     </Text>
                   </AnimatedPanel>
 
