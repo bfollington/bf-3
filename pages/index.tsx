@@ -167,6 +167,16 @@ const DesktopOnly = () => {
               twitter
             </ActionButton>,
             <ActionButton
+              onActivate={() =>
+                visit("https://shimmeringvoid.substack.com/", 300)
+              }
+              index={0}
+              key={0}
+              activationKey="K"
+            >
+              substack
+            </ActionButton>,
+            <ActionButton
               onActivate={() => visit("https://github.com/bfollington", 300)}
               index={1}
               key={1}
@@ -175,28 +185,30 @@ const DesktopOnly = () => {
               github
             </ActionButton>,
             <ActionButton
-              onActivate={() => visit("https://twitch.tv/vivavolt", 300)}
+              onActivate={() => visit("https://www.are.na/ben-follington", 300)}
               index={2}
               key={2}
-              activationKey="W"
-            >
-              twitch
-            </ActionButton>,
-            <ActionButton
-              onActivate={() => visit("https://www.are.na/ben-follington", 300)}
-              index={3}
-              key={3}
               activationKey="A"
             >
               are.na
             </ActionButton>,
             <ActionButton
               onActivate={() => visit("https://twopm.itch.io/", 300)}
-              index={4}
-              key={4}
+              index={3}
+              key={3}
               activationKey="I"
             >
               itch.io
+            </ActionButton>,
+            <ActionButton
+              onActivate={() =>
+                visit("https://www.shadertoy.com/user/vivavolt", 300)
+              }
+              index={4}
+              key={4}
+              activationKey="D"
+            >
+              shadertoy
             </ActionButton>,
             <ActionButton
               onActivate={() =>
@@ -207,6 +219,27 @@ const DesktopOnly = () => {
               activationKey="B"
             >
               codesandbox
+            </ActionButton>,
+            <ActionButton
+              onActivate={() =>
+                visit(
+                  "https://www.youtube.com/channel/UCDoPS90Bk_u5isrlSKWCJiA",
+                  300
+                )
+              }
+              index={6}
+              key={6}
+              activationKey="U"
+            >
+              youtube
+            </ActionButton>,
+            <ActionButton
+              onActivate={() => visit("https://twitch.tv/vivavolt", 300)}
+              index={7}
+              key={7}
+              activationKey="W"
+            >
+              twitch
             </ActionButton>,
           ]}
         ></AnimatedPanel>
