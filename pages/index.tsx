@@ -456,15 +456,20 @@ const Home: NextPage = () => {
                 <PanelList>
                   <AnimatedPanel title="Welcome">
                     <Text>
-                      Hi, I&apos;m Ben Follington. I&apos;m a multi-disciplinary designer, programmer and artist living in Brisbane, Australia. I make, think and write about cool user interfaces, video games and whatever else interests me.
+                      Hi, I&apos;m Ben Follington. I&apos;m a multi-disciplinary
+                      designer, programmer and artist living in Brisbane,
+                      Australia. I make, think and write about cool user
+                      interfaces, video games and whatever else interests me.
                     </Text>
                     <br />
 
                     <Text>
-                      My work combines elegant user-focused design and technical sophistication, I am endlessly
-                      fascinated by human computer interaction and what it can achieve.
-                      I strive for straightforward code, delightful UX,
-                      clear thinking, rapid progress and microscopic attention to detail.
+                      My work combines elegant user-focused design and technical
+                      sophistication while exploring the frontiers of
+                      human-computer interaction . I strive for straightforward
+                      code, delightful UX, clear communication, strategic
+                      planning, rapid progress and microscopic attention to
+                      detail.
                     </Text>
                   </AnimatedPanel>
 
@@ -489,6 +494,14 @@ const Home: NextPage = () => {
                       >
                         github
                       </ActionButton>,
+                      <ActionButton
+                        onActivate={() => visit("mailto:work@bf.wtf", 300)}
+                        index={1}
+                        key={1}
+                        activationKey="E"
+                      >
+                        email me
+                      </ActionButton>,
                     ]}
                   >
                     <Text>
@@ -497,9 +510,9 @@ const Home: NextPage = () => {
                     <br />
                     <Text>
                       I have extensive experience with UI/UX engineering, design
-                      systems, gamedev, software architecture, API design, web app architecture,
-                      interactive visuals (Unity, Godot, webgl &amp; canvas) and mentoring
-                      enthusiastic developers.
+                      systems, gamedev, software architecture, API design, web
+                      app architecture, interactive visuals (Unity, Godot, webgl
+                      &amp; canvas) and mentoring enthusiastic developers.
                     </Text>
                   </AnimatedPanel>
                   <AnimatedPanel
@@ -579,7 +592,7 @@ const Home: NextPage = () => {
                         }
                         index={0}
                         key={0}
-                        activationKey="E"
+                        activationKey="3"
                       >
                         donate ETH
                       </ActionButton>,
