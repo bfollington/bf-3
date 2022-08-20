@@ -374,11 +374,11 @@ const Home: NextPage = () => {
     <div className={styles.container}>
       <Head>
         <title>
-          Ben Follington - multi-disciplinary designer, programmer and artist
+          Ben Follington - generalist designer, programmer and artist
         </title>
         <meta
           name="description"
-          content="Ben Follington: multi-disciplinary designer, programmer and artist making cool stuff with computers."
+          content="Ben Follington: generalist designer, programmer and artist making cool stuff with computers."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -489,20 +489,22 @@ const Home: NextPage = () => {
                 <PanelList>
                   <AnimatedPanel title="Welcome">
                     <Text>
-                      Hi, I&apos;m Ben Follington. I&apos;m a multi-disciplinary
+                      Hi, I&apos;m Ben Follington. I&apos;m a generalist
                       designer, programmer and artist living in Brisbane,
                       Australia. I make, think and write about cool user
-                      interfaces, video games and whatever else interests me.
+                      interfaces, video games, the nature of reality and 
+                      whatever else interests me.
                     </Text>
                     <br />
 
                     <Text>
-                      My work combines elegant user-focused design and technical
+                      My work combines elegant user-focused design with technical
                       sophistication while exploring the frontiers of
-                      human-computer interaction . I strive for straightforward
+                      human-computer interaction. I strive for straightforward
                       code, delightful UX, clear communication, strategic
                       planning, rapid progress and microscopic attention to
-                      detail.
+                      detail. But, at the end of the day, I mostly want to use
+                      technology to make people happy.
                     </Text>
                   </AnimatedPanel>
 
