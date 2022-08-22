@@ -491,20 +491,17 @@ const Home: NextPage = () => {
                     <Text>
                       Hi, I&apos;m Ben Follington. I&apos;m a generalist
                       designer, programmer and artist living in Brisbane,
-                      Australia. I make, think and write about cool user
-                      interfaces, video games, the nature of reality and 
-                      whatever else interests me.
-                    </Text>
-                    <br />
-
-                    <Text>
-                      My work combines elegant user-focused design with technical
-                      sophistication while exploring the frontiers of
-                      human-computer interaction. I strive for straightforward
-                      code, delightful UX, clear communication, strategic
-                      planning, rapid progress and microscopic attention to
-                      detail. But, at the end of the day, I mostly want to use
-                      technology to make people happy.
+                      Australia. I spend my time thinking about and working on:
+                      <ul>
+                        <li>video game design and development</li>
+                        <li>humanistic user interfaces</li>
+                        <li>generative art</li>
+                        <li>software &amp; process architecture</li>
+                        <li>freelance creative consulting</li>
+                        <li>learning and education</li>
+                      </ul>
+                      But, mostly, I use computers to help people think clearly
+                      and feel deeply.
                     </Text>
                   </AnimatedPanel>
 
@@ -540,14 +537,21 @@ const Home: NextPage = () => {
                     ]}
                   >
                     <Text>
-                      I will be open for freelance and contract work in Q3 2022.
+                      I will be open for freelance and contract work in Q4 2022.
                     </Text>
                     <br />
                     <Text>
-                      I have extensive experience with UI/UX engineering, design
-                      systems, gamedev, software architecture, API design, web
-                      app architecture, interactive visuals (Unity, Godot, webgl
-                      &amp; canvas) and mentoring enthusiastic developers.
+                      If you&apos;re looking for someone to help bring your
+                      vision to life then please, do reach out. I&apos;m always
+                      excited to see what others are building.
+                    </Text>
+                    <br />
+                    <Text>
+                      I have many years of experience building apps and games
+                      end-to-end, for both myself and others. I prefer working
+                      on the frontier. Regardless of the project, I strive for
+                      clear communication, enthusaistic progress and microscopic
+                      attention to detail.
                     </Text>
                   </AnimatedPanel>
                   <AnimatedPanel
@@ -567,50 +571,37 @@ const Home: NextPage = () => {
                         the song of the fae
                       </ActionButton>,
                       <ActionButton
-                        onActivate={() => visit("https://fundamental.sh", 300)}
-                        index={1}
-                        key={1}
-                        activationKey="F"
-                      >
-                        fundamental.sh
-                      </ActionButton>,
-                      <ActionButton
                         onActivate={() =>
                           visit("https://shimmeringvoid.substack.com/", 300)
                         }
-                        index={2}
-                        key={2}
+                        index={1}
+                        key={1}
                         activationKey="V"
                       >
                         shimmeringvoid
                       </ActionButton>,
                       <ActionButton
                         onActivate={() => visit("https://twopm.studio", 300)}
-                        index={3}
-                        key={3}
+                        index={2}
+                        key={2}
                         activationKey="P"
                       >
                         twopm studios
                       </ActionButton>,
                       <ActionButton
-                        onActivate={() =>
-                          visit(
-                            "https://www.are.na/ben-follington/soundtrack-to-my-life",
-                            300
-                          )
-                        }
-                        index={4}
-                        key={4}
-                        activationKey="L"
+                        onActivate={() => visit("https://fundamental.sh", 300)}
+                        index={3}
+                        key={3}
+                        activationKey="F"
                       >
-                        soundtrack to my life
+                        fundamental.sh
                       </ActionButton>,
                     ]}
                   >
                     <Text>
-                      In my own time I develop commercial and free games,
-                      release OSS, blog about programming and get sentimental
-                      about art, life, philosophy and meditation.
+                      In my &quot;spare&quot; time I develop commercial and free
+                      games, release OSS and write about programming, art, life,
+                      philosophy and meditation.
                     </Text>
                   </AnimatedPanel>
 
