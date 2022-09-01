@@ -23,7 +23,7 @@ class MyDocument extends Document {
               async
               defer
               data-website-id="b548cc69-60e7-4439-8ede-a2fcd3338ff0"
-              src="https://google-analytics-sucks.herokuapp.com/umami.js"
+              src="https://google-analytics-sucks.vercel.app/umami.js"
             ></script>
           )}
         </Head>
