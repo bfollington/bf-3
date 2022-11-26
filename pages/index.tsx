@@ -260,9 +260,7 @@ const DesktopOnly = () => {
               gallery
             </ActionButton>,
             <ActionButton
-              onActivate={() =>
-                visit("https://www.fxhash.xyz/u/shimmeringvoid", 300)
-              }
+              onActivate={() => visit("https://www.fxhash.xyz/u/vivavolt", 300)}
               index={1}
               key={1}
               activationKey="H"
