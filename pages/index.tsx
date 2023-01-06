@@ -489,17 +489,20 @@ const Home: NextPage = () => {
                     <Text>
                       Hi, I&apos;m Ben Follington. I&apos;m a generalist
                       designer, programmer and artist living in Brisbane,
-                      Australia. I spend my time thinking about and working on:
+                      Australia.{" "}
+                    </Text>
+                    <br />
+                    <Text>
+                      I use computers to help people think clearly and feel
+                      deeply, with a focus on:
                       <ul>
                         <li>video game design and development</li>
-                        <li>humanistic user interfaces</li>
+                        <li>human-friendly user interfaces</li>
                         <li>generative art</li>
                         <li>software &amp; process architecture</li>
                         <li>freelance creative consulting</li>
                         <li>learning and education</li>
                       </ul>
-                      But, mostly, I use computers to help people think clearly
-                      and feel deeply.
                     </Text>
                   </AnimatedPanel>
 
@@ -535,21 +538,16 @@ const Home: NextPage = () => {
                     ]}
                   >
                     <Text>
-                      I will be open for freelance and contract work in Q4 2022.
+                      I will be starting a role with{" "}
+                      <a href="https://subconscious.network">Subconscious</a> in
+                      Q1 2023.
                     </Text>
                     <br />
                     <Text>
-                      If you&apos;re looking for someone to help bring your
-                      vision to life then please, do reach out. I&apos;m always
-                      excited to see what others are building.
-                    </Text>
-                    <br />
-                    <Text>
-                      I have many years of experience building apps and games
-                      end-to-end, for both myself and others. I prefer working
-                      on the frontier. Regardless of the project, I strive for
-                      clear communication, enthusaistic progress and microscopic
-                      attention to detail.
+                      I have a lifetime of experience building apps and games
+                      end-to-end, working at the frontiers of human-computer
+                      interaction. I strive for clear communication,
+                      enthusaistic progress and microscopic attention to detail.
                     </Text>
                   </AnimatedPanel>
                   <AnimatedPanel
@@ -566,7 +564,7 @@ const Home: NextPage = () => {
                         key={0}
                         activationKey="S"
                       >
-                        the song of the fae
+                        wizardchess
                       </ActionButton>,
                       <ActionButton
                         onActivate={() =>
@@ -597,9 +595,9 @@ const Home: NextPage = () => {
                     ]}
                   >
                     <Text>
-                      In my &quot;spare&quot; time I develop commercial and free
-                      games, release OSS and write about programming, art, life,
-                      philosophy and meditation.
+                      In my &quot;personal&quot; time I develop commercial and
+                      free games, release OSS and write about programming, art,
+                      life, philosophy and meditation.
                     </Text>
                   </AnimatedPanel>
 
